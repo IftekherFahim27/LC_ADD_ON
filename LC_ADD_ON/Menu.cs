@@ -40,6 +40,11 @@ namespace LC_ADD_ON
                     MasterLC activeForm = new MasterLC();
                     activeForm.Show();
                 }
+                else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_B2BLC")
+                {
+                    ImportLCB2B activeForm = new ImportLCB2B();
+                    activeForm.Show();
+                }
             }
             catch (Exception ex)
             {
