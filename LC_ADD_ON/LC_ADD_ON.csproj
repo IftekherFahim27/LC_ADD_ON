@@ -57,6 +57,9 @@
     <Compile Include="Resources\MasterLC.b1f.cs">
       <DependentUpon>MasterLC.b1f</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SalesContract.b1f.cs">
+      <DependentUpon>SalesContract.b1f</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\" />
@@ -66,6 +69,9 @@
       <FormCategory>UserForm</FormCategory>
     </None>
     <None Include="Resources\MasterLC.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Resources\SalesContract.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
   </ItemGroup>

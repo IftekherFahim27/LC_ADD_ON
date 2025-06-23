@@ -19,6 +19,7 @@ namespace LC_ADD_ON
             //Sub Menu
             CreateMainMenu("FIL_MN_LC", "SUBMN_MASTER_LC", " Master LC", 0, 2, false);
             CreateMainMenu("FIL_MN_LC", "SUBMN_B2BLC", "Import LC/TT/RTGS LC (Back To Back)", 1, 2, false);
+            CreateMainMenu("FIL_MN_LC", "SUBMN_SALESCONTRACT", "Sales Contract", 2, 2, false);
             
             //Child Menu 
             CreateMainMenu("SUBMN_MASTER_LC", "CHLDMN_MASTERLC", "Master LC", 1, 1, false);
@@ -26,6 +27,9 @@ namespace LC_ADD_ON
 
             CreateMainMenu("SUBMN_B2BLC", "CHLDMN_B2BLC", "Import LC/TT/RTGS LC(B2B)", 1, 1, false);
             CreateMainMenu("SUBMN_B2BLC", "CHLDMN_B2B_AMEND", "Import LC/TT/RTGS LC Ammendment (B2B)", 2, 1, false);
+
+            CreateMainMenu("SUBMN_SALESCONTRACT", "CHLDMN_SALCON", "Sales Contract", 1, 1, false);
+            CreateMainMenu("SUBMN_SALESCONTRACT", "CHLDMN_SALAMD", "Sales Contract Ammendment", 2, 1, false);
             
         }
 
@@ -43,6 +47,11 @@ namespace LC_ADD_ON
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_B2BLC")
                 {
                     ImportLCB2B activeForm = new ImportLCB2B();
+                    activeForm.Show();
+                }
+                else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_SALCON")
+                {
+                    SalesContract activeForm = new SalesContract();
                     activeForm.Show();
                 }
             }
