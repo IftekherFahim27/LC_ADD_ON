@@ -49,6 +49,7 @@ namespace LC_ADD_ON.Resources
             this.STAPRATC = ((SAPbouiCOM.StaticText)(this.GetItem("STAPRATC").Specific));
             this.CBCMPANY = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMPANY").Specific));
             this.ETCUSTMR = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSTMR").Specific));
+            this.ETCUSTMR.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCUSTMR_ChooseFromListAfter);
             this.ETSTATUS = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
             this.ETCDNAME = ((SAPbouiCOM.EditText)(this.GetItem("ETCDNAME").Specific));
             this.ETSCVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETSCVAL").Specific));
@@ -58,8 +59,10 @@ namespace LC_ADD_ON.Resources
             this.ETDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETDESC").Specific));
             this.ETADNTNO = ((SAPbouiCOM.EditText)(this.GetItem("ETADNTNO").Specific));
             this.ETISSBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETISSBNK").Specific));
+            this.ETISSBNK.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETISSBNK_ChooseFromListAfter);
             this.ETIBNKNM = ((SAPbouiCOM.EditText)(this.GetItem("ETIBNKNM").Specific));
             this.ETNEGBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETNEGBNK").Specific));
+            this.ETNEGBNK.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETNEGBNK_ChooseFromListAfter);
             this.ETNGBNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETNGBNAM").Specific));
             this.ETJOBNO = ((SAPbouiCOM.EditText)(this.GetItem("ETJOBNO").Specific));
             this.ETJOBNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETJOBNAM").Specific));
@@ -68,6 +71,7 @@ namespace LC_ADD_ON.Resources
             this.ETLOCOMP = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCOMP").Specific));
             this.ETNETFOB = ((SAPbouiCOM.EditText)(this.GetItem("ETNETFOB").Specific));
             this.ETCURR = ((SAPbouiCOM.EditText)(this.GetItem("ETCURR").Specific));
+            this.ETCURR.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCURR_ChooseFromListAfter);
             this.ETFRGCOM = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCOM").Specific));
             this.ETLOCOMM = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCOMM").Specific));
             this.ETDOCNUM = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCNUM").Specific));
@@ -191,5 +195,113 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.StaticText STREMRKS;
         private SAPbouiCOM.EditText ETREMRKS;
         private SAPbouiCOM.EditText ETDOCTRY;
+
+        private void ETCUSTMR_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string CardCode = dt.GetValue("CardCode", 0).ToString();
+                string CardName = dt.GetValue("CardName", 0).ToString();
+
+
+                ETCUSTMR.Value = CardCode;
+                ETCDNAME.Value = CardName;
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETISSBNK_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string BankCode = dt.GetValue("BankCode", 0).ToString();
+                string BankName = dt.GetValue("BankName", 0).ToString();
+
+
+
+                ETISSBNK.Value = BankCode;
+                ETIBNKNM.Value = BankName;
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETNEGBNK_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string BankCode = dt.GetValue("BankCode", 0).ToString();
+                string Account = dt.GetValue("Account", 0).ToString();
+
+                ETNEGBNK.Value = BankCode;
+                ETNGBNAM.Value = Account;
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETCURR_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string CurrCode = dt.GetValue("CurrCode", 0).ToString();
+              
+
+                ETCURR.Value = CurrCode;
+               
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
     }
 }
