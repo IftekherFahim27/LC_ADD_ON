@@ -43,6 +43,35 @@ namespace LC_ADD_ON
                 {
                     MasterLC activeForm = new MasterLC();
                     activeForm.Show();
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMASLC");
+                    try
+                    {
+                        ofrm.Freeze(true);
+
+                        //Branch Code Combo box
+                        string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
+                        SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;   //object defining- Define a combo box
+                        Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+
+
+                        //Payment type Combo box
+                        string sqlQueryptrms = string.Format("SELECT {0}FldValue{0},{0}Descr{0} FROM {0}UFD1{0}  where {0}TableID{0} = '@FIL_OLCB' AND {0}FieldID{0} = 24 ", '"');
+                        SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;   //object defining- Define a combo box
+                        Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
+
+                        //Days type Combo box
+                        string sqlQueryptrms2 = string.Format("SELECT {0}FldValue{0},{0}Descr{0} FROM {0}UFD1{0}  where {0}TableID{0} = '@FIL_OLCB' AND {0}FieldID{0} = 25 ", '"');
+                        SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;   //object defining- Define a combo box
+                        Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+
+                        ofrm.Freeze(false);
+
+                    }
+                    catch(Exception e)
+                    {
+                        Application.SBO_Application.MessageBox("Error Found : " + e.Message);
+                    }
                 }
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_B2BLC")
                 {

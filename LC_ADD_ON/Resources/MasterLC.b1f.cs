@@ -1,4 +1,5 @@
-﻿using SAPbouiCOM.Framework;
+﻿using LC_ADD_ON.Helper;
+using SAPbouiCOM.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,7 @@ namespace LC_ADD_ON.Resources
             this.ETSCVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETSCVAL").Specific));
             this.ETSCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNO").Specific));
             this.ETSCNTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNTRY").Specific));
-            this.EditText6 = ((SAPbouiCOM.EditText)(this.GetItem("Item_37").Specific));
+            this.ETLCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETLCNO").Specific));
             this.ETDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETDESC").Specific));
             this.ETADNTNO = ((SAPbouiCOM.EditText)(this.GetItem("ETADNTNO").Specific));
             this.ETISSBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETISSBNK").Specific));
@@ -96,6 +97,7 @@ namespace LC_ADD_ON.Resources
             this.STDCTYPE = ((SAPbouiCOM.StaticText)(this.GetItem("STDCTYPE").Specific));
             this.CBDCTYPE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBDCTYPE").Specific));
             this.ADDButton = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
+            this.ADDButton.PressedBefore += new SAPbouiCOM._IButtonEvents_PressedBeforeEventHandler(this.ADDButton_PressedBefore);
             this.CancelButton = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
             this.STREMRKS = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
             this.ETREMRKS = ((SAPbouiCOM.EditText)(this.GetItem("ETREMRKS").Specific));
@@ -153,7 +155,7 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETSCVAL;
         private SAPbouiCOM.EditText ETSCNO;
         private SAPbouiCOM.EditText ETSCNTRY;
-        private SAPbouiCOM.EditText EditText6;
+        private SAPbouiCOM.EditText ETLCNO;
         private SAPbouiCOM.EditText ETDESC;
         private SAPbouiCOM.EditText ETADNTNO;
         private SAPbouiCOM.EditText ETISSBNK;
@@ -303,5 +305,103 @@ namespace LC_ADD_ON.Resources
             }
 
         }
+
+        private void ADDButton_PressedBefore(object sboObject, SAPbouiCOM.SBOItemEventArg pVal, out bool BubbleEvent)
+        {
+            BubbleEvent = true;
+            SAPbouiCOM.Form oform = Application.SBO_Application.Forms.Item(pVal.FormUID);
+            if (oform.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE || oform.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+            {
+                ValidateForm(ref oform, ref BubbleEvent);
+            }
+
+        }
+
+        private bool ValidateForm(ref SAPbouiCOM.Form pForm, ref bool BubbleEvent)
+        {
+            string CompanyCode = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_BranchCode", 0);
+            string Doctype = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_DocType", 0);
+            string LCNO = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_LCNo", 0);
+            string IssuingBAnk = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_IssueBank", 0);
+            string NegBank = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_NegBank", 0);
+            string Value = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_Amt", 0);
+            string Curr = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_Curr", 0);
+            string DocDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_DocDate", 0);
+            string IssueDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_IssueDate", 0);
+            string ShipmentDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_ShipDate", 0);
+            string ExpiryDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_ExpDate", 0);
+
+
+            if (CompanyCode == "")
+            {
+                Global.GFunc.ShowError("Select Company Code");
+                pForm.ActiveItem = "CBCMPANY";
+                return BubbleEvent = false;
+            }
+            else if (Doctype == "")
+            {
+                Global.GFunc.ShowError("Select Document Type");
+                pForm.ActiveItem = "CBDCTYPE";
+                return BubbleEvent = false;
+            }
+            else if (LCNO == "")
+            {
+                Global.GFunc.ShowError("Enter LC Number");
+                pForm.ActiveItem = "ETLCNO";
+                return BubbleEvent = false;
+            }
+            else if (IssuingBAnk == "")
+            {
+                Global.GFunc.ShowError("Select the Issuing Bank");
+                pForm.ActiveItem = "ETISSBNK";
+                return BubbleEvent = false;
+            }
+            else if (NegBank == "")
+            {
+                Global.GFunc.ShowError("Select The Negotiation Bank ");
+                pForm.ActiveItem = "ETNEGBNK";
+                return BubbleEvent = false;
+            }
+            else if (Value == "")
+            {
+                Global.GFunc.ShowError("Enter the Value");
+                pForm.ActiveItem = "ETVALUE";
+                return BubbleEvent = false;
+            }
+            else if (Curr == "")
+            {
+                Global.GFunc.ShowError("Select the Currency ");
+                pForm.ActiveItem = "ETCURR";
+                return BubbleEvent = false;
+            }
+            else if (DocDate == "")
+            {
+                Global.GFunc.ShowError("Select the Document Date");
+                pForm.ActiveItem = "ETDOCDAT";
+                return BubbleEvent = false;
+            }
+            else if (IssueDate == "")
+            {
+                Global.GFunc.ShowError("Select the Issuing Date");
+                pForm.ActiveItem = "ETISUDAT";
+                return BubbleEvent = false;
+            }
+            else if (ShipmentDate == "")
+            {
+                Global.GFunc.ShowError("Select the Shipment Date");
+                pForm.ActiveItem = "ETSHIPDT";
+                return BubbleEvent = false;
+            }
+            else if (ExpiryDate == "")
+            {
+                Global.GFunc.ShowError("Select the Expiry Date");
+                pForm.ActiveItem = "ETEXDATE";
+                return BubbleEvent = false;
+            }
+            return BubbleEvent;
+        }
+
+
+
     }
 }
