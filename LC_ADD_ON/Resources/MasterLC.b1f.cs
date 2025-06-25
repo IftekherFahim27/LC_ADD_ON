@@ -55,6 +55,7 @@ namespace LC_ADD_ON.Resources
             this.ETCDNAME = ((SAPbouiCOM.EditText)(this.GetItem("ETCDNAME").Specific));
             this.ETSCVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETSCVAL").Specific));
             this.ETSCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNO").Specific));
+            this.ETSCNO.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETSCNO_ChooseFromListAfter);
             this.ETSCNTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNTRY").Specific));
             this.ETLCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETLCNO").Specific));
             this.ETDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETDESC").Specific));
@@ -401,7 +402,82 @@ namespace LC_ADD_ON.Resources
             return BubbleEvent;
         }
 
+        private void ETSCNO_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string SCNo = dt.GetValue("U_SCNo", 0).ToString();
+                string SCVal = dt.GetValue("U_Amt", 0).ToString();
+                string Val = dt.GetValue("U_Amt", 0).ToString();
+                string FRGCOMP = dt.GetValue("U_ForCommP", 0).ToString();
+                string FRGCOM = dt.GetValue("U_ForComm", 0).ToString();
+                string LocCommP = dt.GetValue("U_LocCommP", 0).ToString();
+                string LocComm = dt.GetValue("U_LocComm", 0).ToString();
+                string conamt = dt.GetValue("U_ConAmt", 0).ToString();
+                string netfob = dt.GetValue("U_NetFOB", 0).ToString();
+                string ISSBNK = dt.GetValue("U_IssueBank", 0).ToString();
+                string ISSBKNM = dt.GetValue("U_IssBName", 0).ToString();
+                string NEGBNK = dt.GetValue("U_NegBank", 0).ToString();
+                string NEGBKNM = dt.GetValue("U_NegBName", 0).ToString();
+                string issudate = dt.GetValue("U_IssueDate", 0).ToString();
+                string shipdate = dt.GetValue("U_ShipDate", 0).ToString();
+                string expdate = dt.GetValue("U_ExpDate", 0).ToString();
+
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+                oForm.Items.Item("ETISSBNK").Enabled = false;
+                oForm.Items.Item("ETNEGBNK").Enabled = false;
+
+               
+
+                ETSCNO.Value = SCNo;
+                ETSCVAL.Value = SCVal;
+                ETVALUE.Value = Val;
+                ETFNCOMP.Value = FRGCOMP;
+                ETFRGCOM.Value = FRGCOM;
+                ETLOCOMP.Value = LocCommP;
+                ETLOCOMM.Value = LocComm;
+                ETCONVAL.Value = conamt;
+                ETNETFOB.Value = netfob;
+
+               
+              
+                ETISSBNK.Value = ISSBNK;
+                ETIBNKNM.Value = ISSBKNM;
+                ETNEGBNK.Value = NEGBNK;
+                ETNGBNAM.Value = NEGBKNM;
+
+                //ETISUDAT.Value = issudate;
+                // ETSHIPDT.Value = shipdate;
+                // ETEXDATE.Value = expdate;
+
+                // Safely get and format the date values
+                DateTime issueDt = Convert.ToDateTime(issudate);
+                DateTime shipDt = Convert.ToDateTime(shipdate);
+                DateTime expDt = Convert.ToDateTime(expdate);
+
+                // Format as yyyyMMdd or yyyy-MM-dd depending on your requirement
+                ETISUDAT.Value = issueDt.ToString("yyyyMMdd");
+                ETSHIPDT.Value = shipDt.ToString("yyyyMMdd");
+                ETEXDATE.Value = expDt.ToString("yyyyMMdd");
 
 
+
+                oForm.Items.Item("ETISSBNK").Enabled = true;
+                oForm.Items.Item("ETNEGBNK").Enabled = true;
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
     }
 }

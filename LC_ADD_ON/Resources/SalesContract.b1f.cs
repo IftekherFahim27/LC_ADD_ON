@@ -18,115 +18,119 @@ namespace LC_ADD_ON.Resources
         /// </summary>
         public override void OnInitializeComponent()
         {
-            this.StaticText0 = ((SAPbouiCOM.StaticText)(this.GetItem("STCMPCOD").Specific));
-            this.ComboBox0 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMPCOD").Specific));
-            this.StaticText1 = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCNO").Specific));
-            this.StaticText2 = ((SAPbouiCOM.StaticText)(this.GetItem("STCUSCOD").Specific));
-            this.StaticText3 = ((SAPbouiCOM.StaticText)(this.GetItem("STBRNDCD").Specific));
-            this.StaticText4 = ((SAPbouiCOM.StaticText)(this.GetItem("STISSBNK").Specific));
-            this.StaticText5 = ((SAPbouiCOM.StaticText)(this.GetItem("STSCDESC").Specific));
-            this.StaticText6 = ((SAPbouiCOM.StaticText)(this.GetItem("STSHPDAT").Specific));
-            this.StaticText7 = ((SAPbouiCOM.StaticText)(this.GetItem("STREFENC").Specific));
-            this.StaticText8 = ((SAPbouiCOM.StaticText)(this.GetItem("STISUDAT").Specific));
-            this.StaticText9 = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCDAT").Specific));
-            this.StaticText10 = ((SAPbouiCOM.StaticText)(this.GetItem("STNEGBNK").Specific));
-            this.StaticText11 = ((SAPbouiCOM.StaticText)(this.GetItem("STCURR").Specific));
-            this.StaticText12 = ((SAPbouiCOM.StaticText)(this.GetItem("STSCNO").Specific));
-            this.StaticText13 = ((SAPbouiCOM.StaticText)(this.GetItem("STSCNDBK").Specific));
-            this.StaticText14 = ((SAPbouiCOM.StaticText)(this.GetItem("STAMT").Specific));
-            this.StaticText15 = ((SAPbouiCOM.StaticText)(this.GetItem("STNETFOB").Specific));
-            this.StaticText16 = ((SAPbouiCOM.StaticText)(this.GetItem("STREMVAL").Specific));
-            this.StaticText17 = ((SAPbouiCOM.StaticText)(this.GetItem("STCNSVAL").Specific));
-            this.StaticText18 = ((SAPbouiCOM.StaticText)(this.GetItem("STFRGCMP").Specific));
-            this.StaticText19 = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCCMP").Specific));
-            this.EditText0 = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSCOD").Specific));
-            this.EditText1 = ((SAPbouiCOM.EditText)(this.GetItem("ETBRNDCD").Specific));
-            this.EditText2 = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNO").Specific));
-            this.EditText3 = ((SAPbouiCOM.EditText)(this.GetItem("ETSCDESC").Specific));
-            this.EditText5 = ((SAPbouiCOM.EditText)(this.GetItem("ETAMT").Specific));
-            this.EditText6 = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCMP").Specific));
-            this.EditText7 = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCCMP").Specific));
-            this.EditText8 = ((SAPbouiCOM.EditText)(this.GetItem("ETCNSVAL").Specific));
-            this.EditText9 = ((SAPbouiCOM.EditText)(this.GetItem("ETREMVAL").Specific));
-            this.EditText10 = ((SAPbouiCOM.EditText)(this.GetItem("ETNETFOB").Specific));
-            this.StaticText20 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_32").Specific));
-            this.EditText11 = ((SAPbouiCOM.EditText)(this.GetItem("Item_33").Specific));
-            this.EditText12 = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSNAM").Specific));
-            this.EditText13 = ((SAPbouiCOM.EditText)(this.GetItem("ETBRNDNM").Specific));
-            this.StaticText21 = ((SAPbouiCOM.StaticText)(this.GetItem("STCSTTS").Specific));
-            this.ComboBox1 = ((SAPbouiCOM.ComboBox)(this.GetItem("ETCSTTS").Specific));
-            this.EditText15 = ((SAPbouiCOM.EditText)(this.GetItem("ETREFENC").Specific));
-            this.StaticText22 = ((SAPbouiCOM.StaticText)(this.GetItem("STFRGCOM").Specific));
-            this.StaticText23 = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCCOM").Specific));
-            this.EditText16 = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCOM").Specific));
-            this.EditText17 = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCCOM").Specific));
-            this.EditText18 = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCNO").Specific));
-            this.EditText19 = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCDAT").Specific));
-            this.EditText20 = ((SAPbouiCOM.EditText)(this.GetItem("ETISUDAT").Specific));
-            this.EditText21 = ((SAPbouiCOM.EditText)(this.GetItem("ETCURR").Specific));
-            this.EditText22 = ((SAPbouiCOM.EditText)(this.GetItem("ETNEGBNK").Specific));
-            this.EditText23 = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNDBK").Specific));
-            this.EditText24 = ((SAPbouiCOM.EditText)(this.GetItem("ETISSBNK").Specific));
-            this.StaticText25 = ((SAPbouiCOM.StaticText)(this.GetItem("STEXPDAT").Specific));
+            this.STCMPCOD = ((SAPbouiCOM.StaticText)(this.GetItem("STCMPCOD").Specific));
+            this.CBCMPCOD = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMPCOD").Specific));
+            this.STDOCNO = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCNO").Specific));
+            this.STCUSCOD = ((SAPbouiCOM.StaticText)(this.GetItem("STCUSCOD").Specific));
+            this.STBRNDCD = ((SAPbouiCOM.StaticText)(this.GetItem("STBRNDCD").Specific));
+            this.STISSBNK = ((SAPbouiCOM.StaticText)(this.GetItem("STISSBNK").Specific));
+            this.STSCDESC = ((SAPbouiCOM.StaticText)(this.GetItem("STSCDESC").Specific));
+            this.STSHPDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STSHPDAT").Specific));
+            this.STREFENC = ((SAPbouiCOM.StaticText)(this.GetItem("STREFENC").Specific));
+            this.STISUDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STISUDAT").Specific));
+            this.STDOCDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCDAT").Specific));
+            this.STNEGBNK = ((SAPbouiCOM.StaticText)(this.GetItem("STNEGBNK").Specific));
+            this.STCURR = ((SAPbouiCOM.StaticText)(this.GetItem("STCURR").Specific));
+            this.STSCNO = ((SAPbouiCOM.StaticText)(this.GetItem("STSCNO").Specific));
+            this.STSCNDBK = ((SAPbouiCOM.StaticText)(this.GetItem("STSCNDBK").Specific));
+            this.STAMT = ((SAPbouiCOM.StaticText)(this.GetItem("STAMT").Specific));
+            this.STNETFOB = ((SAPbouiCOM.StaticText)(this.GetItem("STNETFOB").Specific));
+            this.STREMVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STREMVAL").Specific));
+            this.STCNSVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STCNSVAL").Specific));
+            this.STFRGCMP = ((SAPbouiCOM.StaticText)(this.GetItem("STFRGCMP").Specific));
+            this.STLOCCMP = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCCMP").Specific));
+            this.ETCUSCOD = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSCOD").Specific));
+            this.ETCUSCOD.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCUSCOD_ChooseFromListAfter);
+            this.ETBRNDCD = ((SAPbouiCOM.EditText)(this.GetItem("ETBRNDCD").Specific));
+            this.ETSCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNO").Specific));
+            this.ETSCDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETSCDESC").Specific));
+            this.ETAMT = ((SAPbouiCOM.EditText)(this.GetItem("ETAMT").Specific));
+            this.ETAMT.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(this.ETAMT_LostFocusAfter);
+            this.ETFRGCMP = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCMP").Specific));
+            this.ETLOCCMP = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCCMP").Specific));
+            this.ETCNSVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETCNSVAL").Specific));
+            this.ETREMVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETREMVAL").Specific));
+            this.ETNETFOB = ((SAPbouiCOM.EditText)(this.GetItem("ETNETFOB").Specific));
+            this.STSTAT = ((SAPbouiCOM.StaticText)(this.GetItem("STSTAT").Specific));
+            this.ETSTAT = ((SAPbouiCOM.EditText)(this.GetItem("ETSTAT").Specific));
+            this.ETCUSNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSNAM").Specific));
+            this.ETBRNDNM = ((SAPbouiCOM.EditText)(this.GetItem("ETBRNDNM").Specific));
+            this.STCSTTS = ((SAPbouiCOM.StaticText)(this.GetItem("STCSTTS").Specific));
+            this.CBCSTTS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCSTTS").Specific));
+            this.ETREFENC = ((SAPbouiCOM.EditText)(this.GetItem("ETREFENC").Specific));
+            this.STFRGCOM = ((SAPbouiCOM.StaticText)(this.GetItem("STFRGCOM").Specific));
+            this.STLOCCOM = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCCOM").Specific));
+            this.ETFRGCOM = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCOM").Specific));
+            this.ETLOCCOM = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCCOM").Specific));
+            this.ETDOCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCNO").Specific));
+            this.ETDOCDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCDAT").Specific));
+            this.ETISUDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETISUDAT").Specific));
+            this.ETCURR = ((SAPbouiCOM.EditText)(this.GetItem("ETCURR").Specific));
+            this.ETCURR.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCURR_ChooseFromListAfter);
+            this.ETNEGBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETNEGBNK").Specific));
+            this.ETNEGBNK.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETNEGBNK_ChooseFromListAfter);
+            this.ETSCNDBK = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNDBK").Specific));
+            this.ETISSBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETISSBNK").Specific));
+            this.ETISSBNK.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETISSBNK_ChooseFromListAfter);
+            this.STEXPDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STEXPDAT").Specific));
             this.StaticText26 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_53").Specific));
-            this.StaticText27 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_54").Specific));
-            this.StaticText28 = ((SAPbouiCOM.StaticText)(this.GetItem("STAMDTNO").Specific));
+            this.STORDRDL = ((SAPbouiCOM.StaticText)(this.GetItem("STORDRDL").Specific));
+            this.STAMDTNO = ((SAPbouiCOM.StaticText)(this.GetItem("STAMDTNO").Specific));
             this.EditText25 = ((SAPbouiCOM.EditText)(this.GetItem("Item_56").Specific));
-            this.EditText26 = ((SAPbouiCOM.EditText)(this.GetItem("ETSHPDAT").Specific));
-            this.EditText27 = ((SAPbouiCOM.EditText)(this.GetItem("ETEXPDAT").Specific));
-            this.EditText29 = ((SAPbouiCOM.EditText)(this.GetItem("ETAMDTNO").Specific));
-            this.EditText31 = ((SAPbouiCOM.EditText)(this.GetItem("ETISBKNM").Specific));
-            this.EditText32 = ((SAPbouiCOM.EditText)(this.GetItem("ETSDBKNM").Specific));
-            this.EditText33 = ((SAPbouiCOM.EditText)(this.GetItem("ETNGBKNM").Specific));
-            this.StaticText29 = ((SAPbouiCOM.StaticText)(this.GetItem("STBUNIT").Specific));
-            this.EditText34 = ((SAPbouiCOM.EditText)(this.GetItem("ETBUNIT").Specific));
-            this.StaticText30 = ((SAPbouiCOM.StaticText)(this.GetItem("STSTATUS").Specific));
-            this.EditText35 = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
-            this.StaticText31 = ((SAPbouiCOM.StaticText)(this.GetItem("STCSSTTS").Specific));
-            this.EditText36 = ((SAPbouiCOM.EditText)(this.GetItem("ETCSSTTS").Specific));
-            this.StaticText24 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_36").Specific));
-            this.StaticText32 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_51").Specific));
-            this.LinkedButton0 = ((SAPbouiCOM.LinkedButton)(this.GetItem("Item_59").Specific));
-            this.LinkedButton1 = ((SAPbouiCOM.LinkedButton)(this.GetItem("Item_61").Specific));
-            this.LinkedButton2 = ((SAPbouiCOM.LinkedButton)(this.GetItem("Item_71").Specific));
-            this.Folder0 = ((SAPbouiCOM.Folder)(this.GetItem("Item_73").Specific));
-            this.Folder1 = ((SAPbouiCOM.Folder)(this.GetItem("Item_74").Specific));
-            this.Folder2 = ((SAPbouiCOM.Folder)(this.GetItem("Item_75").Specific));
-            this.Folder3 = ((SAPbouiCOM.Folder)(this.GetItem("Item_76").Specific));
+            this.ETSHPDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETSHPDAT").Specific));
+            this.ETEXPDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETEXPDAT").Specific));
+            this.ETAMDTNO = ((SAPbouiCOM.EditText)(this.GetItem("ETAMDTNO").Specific));
+            this.ETISBKNM = ((SAPbouiCOM.EditText)(this.GetItem("ETISBKNM").Specific));
+            this.ETSDBKNM = ((SAPbouiCOM.EditText)(this.GetItem("ETSDBKNM").Specific));
+            this.ETNGBKNM = ((SAPbouiCOM.EditText)(this.GetItem("ETNGBKNM").Specific));
+            this.STBUNIT = ((SAPbouiCOM.StaticText)(this.GetItem("STBUNIT").Specific));
+            this.ETBUNIT = ((SAPbouiCOM.EditText)(this.GetItem("ETBUNIT").Specific));
+            this.STSTATUS = ((SAPbouiCOM.StaticText)(this.GetItem("STSTATUS").Specific));
+            this.ETSTATUS = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
+            this.STCSSTTS = ((SAPbouiCOM.StaticText)(this.GetItem("STCSSTTS").Specific));
+            this.ETCSSTTS = ((SAPbouiCOM.EditText)(this.GetItem("ETCSSTTS").Specific));
+            this.STAMDMNT = ((SAPbouiCOM.StaticText)(this.GetItem("STAMDMNT").Specific));
+            this.STB2B = ((SAPbouiCOM.StaticText)(this.GetItem("STB2B").Specific));
+            this.LB1 = ((SAPbouiCOM.LinkedButton)(this.GetItem("LB1").Specific));
+            this.LB2 = ((SAPbouiCOM.LinkedButton)(this.GetItem("LB2").Specific));
+            this.LB3 = ((SAPbouiCOM.LinkedButton)(this.GetItem("LB3").Specific));
+            this.FOLORDLS = ((SAPbouiCOM.Folder)(this.GetItem("FOLORDLS").Specific));
+            this.FOLAMDNT = ((SAPbouiCOM.Folder)(this.GetItem("FOLAMDNT").Specific));
+            this.FOLATTCT = ((SAPbouiCOM.Folder)(this.GetItem("FOLATTCT").Specific));
+            this.FOLOHRDL = ((SAPbouiCOM.Folder)(this.GetItem("FOLOHRDL").Specific));
             this.StaticText33 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_77").Specific));
             this.EditText14 = ((SAPbouiCOM.EditText)(this.GetItem("Item_78").Specific));
-            this.Button0 = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
-            this.Button0.ClickBefore += new SAPbouiCOM._IButtonEvents_ClickBeforeEventHandler(this.Button0_ClickBefore);
-            this.Button1 = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
-            this.StaticText34 = ((SAPbouiCOM.StaticText)(this.GetItem("STSHTRMS").Specific));
+            this.ADDButton = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
+            this.CancelButton = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
+            this.STSHTRMS = ((SAPbouiCOM.StaticText)(this.GetItem("STSHTRMS").Specific));
             this.StaticText35 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_84").Specific));
             this.EditText30 = ((SAPbouiCOM.EditText)(this.GetItem("Item_85").Specific));
-            this.StaticText36 = ((SAPbouiCOM.StaticText)(this.GetItem("STTRMSPM").Specific));
-            this.ComboBox2 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBTRMSPM").Specific));
-            this.ComboBox3 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBSHTRMS").Specific));
-            this.ComboBox4 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMDFSHP").Specific));
-            this.StaticText38 = ((SAPbouiCOM.StaticText)(this.GetItem("STDAYS").Specific));
-            this.EditText38 = ((SAPbouiCOM.EditText)(this.GetItem("ETDAYS").Specific));
-            this.StaticText39 = ((SAPbouiCOM.StaticText)(this.GetItem("STPRTLOD").Specific));
-            this.EditText40 = ((SAPbouiCOM.EditText)(this.GetItem("ETINSRCE").Specific));
-            this.StaticText41 = ((SAPbouiCOM.StaticText)(this.GetItem("STPRTSHP").Specific));
-            this.EditText41 = ((SAPbouiCOM.EditText)(this.GetItem("ETPRTSHP").Specific));
-            this.StaticText42 = ((SAPbouiCOM.StaticText)(this.GetItem("STINSRCE").Specific));
-            this.StaticText43 = ((SAPbouiCOM.StaticText)(this.GetItem("STPDSCRG").Specific));
-            this.StaticText44 = ((SAPbouiCOM.StaticText)(this.GetItem("STCODEST").Specific));
-            this.StaticText45 = ((SAPbouiCOM.StaticText)(this.GetItem("STHSCODE").Specific));
-            this.EditText45 = ((SAPbouiCOM.EditText)(this.GetItem("ETHSCODE").Specific));
-            this.StaticText46 = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCREQ").Specific));
-            this.EditText46 = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
-            this.EditText47 = ((SAPbouiCOM.EditText)(this.GetItem("Item_110").Specific));
-            this.StaticText47 = ((SAPbouiCOM.StaticText)(this.GetItem("STTRMSCN").Specific));
-            this.EditText48 = ((SAPbouiCOM.EditText)(this.GetItem("ETTRMSCN").Specific));
-            this.StaticText48 = ((SAPbouiCOM.StaticText)(this.GetItem("STMDFSHP").Specific));
-            this.StaticText49 = ((SAPbouiCOM.StaticText)(this.GetItem("STNOFYPY").Specific));
-            this.EditText49 = ((SAPbouiCOM.EditText)(this.GetItem("ETNOFYPY").Specific));
-            this.EditText50 = ((SAPbouiCOM.EditText)(this.GetItem("Item_116").Specific));
-            this.EditText51 = ((SAPbouiCOM.EditText)(this.GetItem("Item_117").Specific));
-            this.EditText52 = ((SAPbouiCOM.EditText)(this.GetItem("ETPDSCRG").Specific));
+            this.STTRMSPM = ((SAPbouiCOM.StaticText)(this.GetItem("STTRMSPM").Specific));
+            this.CBTRMSPM = ((SAPbouiCOM.ComboBox)(this.GetItem("CBTRMSPM").Specific));
+            this.CBSHTRMS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBSHTRMS").Specific));
+            this.CBMDFSHP = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMDFSHP").Specific));
+            this.STDAYS = ((SAPbouiCOM.StaticText)(this.GetItem("STDAYS").Specific));
+            this.ETDAYS = ((SAPbouiCOM.EditText)(this.GetItem("ETDAYS").Specific));
+            this.STPRTLOD = ((SAPbouiCOM.StaticText)(this.GetItem("STPRTLOD").Specific));
+            this.ETINSRCE = ((SAPbouiCOM.EditText)(this.GetItem("ETINSRCE").Specific));
+            this.STPRTSHP = ((SAPbouiCOM.StaticText)(this.GetItem("STPRTSHP").Specific));
+            this.ETPRTSHP = ((SAPbouiCOM.EditText)(this.GetItem("ETPRTSHP").Specific));
+            this.STINSRCE = ((SAPbouiCOM.StaticText)(this.GetItem("STINSRCE").Specific));
+            this.STPDSCRG = ((SAPbouiCOM.StaticText)(this.GetItem("STPDSCRG").Specific));
+            this.STCODEST = ((SAPbouiCOM.StaticText)(this.GetItem("STCODEST").Specific));
+            this.STHSCODE = ((SAPbouiCOM.StaticText)(this.GetItem("STHSCODE").Specific));
+            this.ETHSCODE = ((SAPbouiCOM.EditText)(this.GetItem("ETHSCODE").Specific));
+            this.STDOCREQ = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCREQ").Specific));
+            this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
+            this.ETDOCREQ = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCREQ").Specific));
+            this.STTRMSCN = ((SAPbouiCOM.StaticText)(this.GetItem("STTRMSCN").Specific));
+            this.ETTRMSCN = ((SAPbouiCOM.EditText)(this.GetItem("ETTRMSCN").Specific));
+            this.STMDFSHP = ((SAPbouiCOM.StaticText)(this.GetItem("STMDFSHP").Specific));
+            this.STNOFYPY = ((SAPbouiCOM.StaticText)(this.GetItem("STNOFYPY").Specific));
+            this.ETNOFYPY = ((SAPbouiCOM.EditText)(this.GetItem("ETNOFYPY").Specific));
+            this.ETCODEST = ((SAPbouiCOM.EditText)(this.GetItem("ETCODEST").Specific));
+            this.ETPRTLOD = ((SAPbouiCOM.EditText)(this.GetItem("ETPRTLOD").Specific));
+            this.ETPDSCRG = ((SAPbouiCOM.EditText)(this.GetItem("ETPDSCRG").Specific));
             this.OnCustomInitialize();
 
         }
@@ -140,129 +144,255 @@ namespace LC_ADD_ON.Resources
 
         }
 
-        private SAPbouiCOM.StaticText StaticText0;
+        private SAPbouiCOM.StaticText STCMPCOD;
 
         private void OnCustomInitialize()
         {
 
         }
 
-        private SAPbouiCOM.ComboBox ComboBox0;
-        private SAPbouiCOM.StaticText StaticText1;
-        private SAPbouiCOM.StaticText StaticText2;
-        private SAPbouiCOM.StaticText StaticText3;
-        private SAPbouiCOM.StaticText StaticText4;
-        private SAPbouiCOM.StaticText StaticText5;
-        private SAPbouiCOM.StaticText StaticText6;
-        private SAPbouiCOM.StaticText StaticText7;
-        private SAPbouiCOM.StaticText StaticText8;
-        private SAPbouiCOM.StaticText StaticText9;
-        private SAPbouiCOM.StaticText StaticText10;
-        private SAPbouiCOM.StaticText StaticText11;
-        private SAPbouiCOM.StaticText StaticText12;
-        private SAPbouiCOM.StaticText StaticText13;
-        private SAPbouiCOM.StaticText StaticText14;
-        private SAPbouiCOM.StaticText StaticText15;
-        private SAPbouiCOM.StaticText StaticText16;
-        private SAPbouiCOM.StaticText StaticText17;
-        private SAPbouiCOM.StaticText StaticText18;
-        private SAPbouiCOM.StaticText StaticText19;
-        private SAPbouiCOM.EditText EditText0;
-        private SAPbouiCOM.EditText EditText1;
-        private SAPbouiCOM.EditText EditText2;
-        private SAPbouiCOM.EditText EditText3;
-        private SAPbouiCOM.EditText EditText5;
-        private SAPbouiCOM.EditText EditText6;
-        private SAPbouiCOM.EditText EditText7;
-        private SAPbouiCOM.EditText EditText8;
-        private SAPbouiCOM.EditText EditText9;
-        private SAPbouiCOM.EditText EditText10;
-        private SAPbouiCOM.StaticText StaticText20;
-        private SAPbouiCOM.EditText EditText11;
-        private SAPbouiCOM.EditText EditText12;
-        private SAPbouiCOM.EditText EditText13;
-        private SAPbouiCOM.StaticText StaticText21;
-        private SAPbouiCOM.ComboBox ComboBox1;
-        private SAPbouiCOM.EditText EditText15;
-        private SAPbouiCOM.StaticText StaticText22;
-        private SAPbouiCOM.StaticText StaticText23;
-        private SAPbouiCOM.EditText EditText16;
-        private SAPbouiCOM.EditText EditText17;
-        private SAPbouiCOM.EditText EditText18;
-        private SAPbouiCOM.EditText EditText19;
-        private SAPbouiCOM.EditText EditText20;
-        private SAPbouiCOM.EditText EditText21;
-        private SAPbouiCOM.EditText EditText22;
-        private SAPbouiCOM.EditText EditText23;
-        private SAPbouiCOM.EditText EditText24;
-        private SAPbouiCOM.StaticText StaticText25;
+        private SAPbouiCOM.ComboBox CBCMPCOD;
+        private SAPbouiCOM.StaticText STDOCNO;
+        private SAPbouiCOM.StaticText STCUSCOD;
+        private SAPbouiCOM.StaticText STBRNDCD;
+        private SAPbouiCOM.StaticText STISSBNK;
+        private SAPbouiCOM.StaticText STSCDESC;
+        private SAPbouiCOM.StaticText STSHPDAT;
+        private SAPbouiCOM.StaticText STREFENC;
+        private SAPbouiCOM.StaticText STISUDAT;
+        private SAPbouiCOM.StaticText STDOCDAT;
+        private SAPbouiCOM.StaticText STNEGBNK;
+        private SAPbouiCOM.StaticText STCURR;
+        private SAPbouiCOM.StaticText STSCNO;
+        private SAPbouiCOM.StaticText STSCNDBK;
+        private SAPbouiCOM.StaticText STAMT;
+        private SAPbouiCOM.StaticText STNETFOB;
+        private SAPbouiCOM.StaticText STREMVAL;
+        private SAPbouiCOM.StaticText STCNSVAL;
+        private SAPbouiCOM.StaticText STFRGCMP;
+        private SAPbouiCOM.StaticText STLOCCMP;
+        private SAPbouiCOM.EditText ETCUSCOD;
+        private SAPbouiCOM.EditText ETBRNDCD;
+        private SAPbouiCOM.EditText ETSCNO;
+        private SAPbouiCOM.EditText ETSCDESC;
+        private SAPbouiCOM.EditText ETAMT;
+        private SAPbouiCOM.EditText ETFRGCMP;
+        private SAPbouiCOM.EditText ETLOCCMP;
+        private SAPbouiCOM.EditText ETCNSVAL;
+        private SAPbouiCOM.EditText ETREMVAL;
+        private SAPbouiCOM.EditText ETNETFOB;
+        private SAPbouiCOM.StaticText STSTAT;
+        private SAPbouiCOM.EditText ETSTAT;
+        private SAPbouiCOM.EditText ETCUSNAM;
+        private SAPbouiCOM.EditText ETBRNDNM;
+        private SAPbouiCOM.StaticText STCSTTS;
+        private SAPbouiCOM.ComboBox CBCSTTS;
+        private SAPbouiCOM.EditText ETREFENC;
+        private SAPbouiCOM.StaticText STFRGCOM;
+        private SAPbouiCOM.StaticText STLOCCOM;
+        private SAPbouiCOM.EditText ETFRGCOM;
+        private SAPbouiCOM.EditText ETLOCCOM;
+        private SAPbouiCOM.EditText ETDOCNO;
+        private SAPbouiCOM.EditText ETDOCDAT;
+        private SAPbouiCOM.EditText ETISUDAT;
+        private SAPbouiCOM.EditText ETCURR;
+        private SAPbouiCOM.EditText ETNEGBNK;
+        private SAPbouiCOM.EditText ETSCNDBK;
+        private SAPbouiCOM.EditText ETISSBNK;
+        private SAPbouiCOM.StaticText STEXPDAT;
         private SAPbouiCOM.StaticText StaticText26;
-        private SAPbouiCOM.StaticText StaticText27;
-        private SAPbouiCOM.StaticText StaticText28;
+        private SAPbouiCOM.StaticText STORDRDL;
+        private SAPbouiCOM.StaticText STAMDTNO;
         private SAPbouiCOM.EditText EditText25;
-        private SAPbouiCOM.EditText EditText26;
-        private SAPbouiCOM.EditText EditText27;
-        private SAPbouiCOM.EditText EditText29;
-        private SAPbouiCOM.EditText EditText31;
-        private SAPbouiCOM.EditText EditText32;
-        private SAPbouiCOM.EditText EditText33;
-        private SAPbouiCOM.StaticText StaticText29;
-        private SAPbouiCOM.EditText EditText34;
-        private SAPbouiCOM.StaticText StaticText30;
-        private SAPbouiCOM.EditText EditText35;
-        private SAPbouiCOM.StaticText StaticText31;
-        private SAPbouiCOM.EditText EditText36;
-        private SAPbouiCOM.StaticText StaticText24;
-        private SAPbouiCOM.StaticText StaticText32;
-        private SAPbouiCOM.LinkedButton LinkedButton0;
-        private SAPbouiCOM.LinkedButton LinkedButton1;
-        private SAPbouiCOM.LinkedButton LinkedButton2;
-        private SAPbouiCOM.Folder Folder0;
-        private SAPbouiCOM.Folder Folder1;
-        private SAPbouiCOM.Folder Folder2;
-        private SAPbouiCOM.Folder Folder3;
+        private SAPbouiCOM.EditText ETSHPDAT;
+        private SAPbouiCOM.EditText ETEXPDAT;
+        private SAPbouiCOM.EditText ETAMDTNO;
+        private SAPbouiCOM.EditText ETISBKNM;
+        private SAPbouiCOM.EditText ETSDBKNM;
+        private SAPbouiCOM.EditText ETNGBKNM;
+        private SAPbouiCOM.StaticText STBUNIT;
+        private SAPbouiCOM.EditText ETBUNIT;
+        private SAPbouiCOM.StaticText STSTATUS;
+        private SAPbouiCOM.EditText ETSTATUS;
+        private SAPbouiCOM.StaticText STCSSTTS;
+        private SAPbouiCOM.EditText ETCSSTTS;
+        private SAPbouiCOM.StaticText STAMDMNT;
+        private SAPbouiCOM.StaticText STB2B;
+        private SAPbouiCOM.LinkedButton LB1;
+        private SAPbouiCOM.LinkedButton LB2;
+        private SAPbouiCOM.LinkedButton LB3;
+        private SAPbouiCOM.Folder FOLORDLS;
+        private SAPbouiCOM.Folder FOLAMDNT;
+        private SAPbouiCOM.Folder FOLATTCT;
+        private SAPbouiCOM.Folder FOLOHRDL;
         private SAPbouiCOM.StaticText StaticText33;
         private SAPbouiCOM.EditText EditText14;
-        private SAPbouiCOM.Button Button0;
+        private SAPbouiCOM.Button ADDButton;
 
-        private void Button0_ClickBefore(object sboObject, SAPbouiCOM.SBOItemEventArg pVal, out bool BubbleEvent)
+      
+
+        private SAPbouiCOM.Button CancelButton;
+        private SAPbouiCOM.StaticText STSHTRMS;
+        private SAPbouiCOM.StaticText STTRMSPM;
+        private SAPbouiCOM.EditText EditText30;
+        private SAPbouiCOM.StaticText StaticText35;
+        private SAPbouiCOM.ComboBox CBTRMSPM;
+        private SAPbouiCOM.ComboBox CBSHTRMS;
+        private SAPbouiCOM.ComboBox CBMDFSHP;
+        private SAPbouiCOM.StaticText STDAYS;
+        private SAPbouiCOM.EditText ETDAYS;
+        private SAPbouiCOM.StaticText STPRTLOD;
+        private SAPbouiCOM.EditText ETINSRCE;
+        private SAPbouiCOM.StaticText STPRTSHP;
+        private SAPbouiCOM.EditText ETPRTSHP;
+        private SAPbouiCOM.StaticText STINSRCE;
+        private SAPbouiCOM.StaticText STPDSCRG;
+        private SAPbouiCOM.StaticText STCODEST;
+        private SAPbouiCOM.StaticText STHSCODE;
+        private SAPbouiCOM.EditText ETHSCODE;
+        private SAPbouiCOM.StaticText STDOCREQ;
+        private SAPbouiCOM.EditText ETDOCTRY;
+        private SAPbouiCOM.EditText ETDOCREQ;
+        private SAPbouiCOM.StaticText STTRMSCN;
+        private SAPbouiCOM.EditText ETTRMSCN;
+        private SAPbouiCOM.StaticText STMDFSHP;
+        private SAPbouiCOM.StaticText STNOFYPY;
+        private SAPbouiCOM.EditText ETNOFYPY;
+        private SAPbouiCOM.EditText ETCODEST;
+        private SAPbouiCOM.EditText ETPRTLOD;
+        private SAPbouiCOM.EditText ETPDSCRG;
+
+        private void ETCUSCOD_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
         {
-            BubbleEvent = true;
-            throw new System.NotImplementedException();
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string CardCode = dt.GetValue("CardCode", 0).ToString();
+                string CardName = dt.GetValue("CardName", 0).ToString();
+
+
+                ETCUSCOD.Value = CardCode;
+                ETCUSNAM.Value = CardName;
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
 
         }
 
-        private SAPbouiCOM.Button Button1;
-        private SAPbouiCOM.StaticText StaticText34;
-        private SAPbouiCOM.StaticText StaticText35;
-        private SAPbouiCOM.EditText EditText30;
-        private SAPbouiCOM.StaticText StaticText36;
-        private SAPbouiCOM.ComboBox ComboBox2;
-        private SAPbouiCOM.ComboBox ComboBox3;
-        private SAPbouiCOM.ComboBox ComboBox4;
-        private SAPbouiCOM.StaticText StaticText38;
-        private SAPbouiCOM.EditText EditText38;
-        private SAPbouiCOM.StaticText StaticText39;
-        private SAPbouiCOM.EditText EditText40;
-        private SAPbouiCOM.StaticText StaticText41;
-        private SAPbouiCOM.EditText EditText41;
-        private SAPbouiCOM.StaticText StaticText42;
-        private SAPbouiCOM.StaticText StaticText43;
-        private SAPbouiCOM.StaticText StaticText44;
-        private SAPbouiCOM.StaticText StaticText45;
-        private SAPbouiCOM.EditText EditText45;
-        private SAPbouiCOM.StaticText StaticText46;
-        private SAPbouiCOM.EditText EditText46;
-        private SAPbouiCOM.EditText EditText47;
-        private SAPbouiCOM.StaticText StaticText47;
-        private SAPbouiCOM.EditText EditText48;
-        private SAPbouiCOM.StaticText StaticText48;
-        private SAPbouiCOM.StaticText StaticText49;
-        private SAPbouiCOM.EditText EditText49;
-        private SAPbouiCOM.EditText EditText50;
-        private SAPbouiCOM.EditText EditText51;
-        private SAPbouiCOM.EditText EditText52;
+        private void ETISSBNK_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
 
-       
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string BankCode = dt.GetValue("BankCode", 0).ToString();
+                string BankName = dt.GetValue("BankName", 0).ToString();
+
+
+
+                ETISSBNK.Value = BankCode;
+                ETISBKNM.Value = BankName;
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETNEGBNK_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string BankCode = dt.GetValue("BankCode", 0).ToString();
+                string Account = dt.GetValue("Account", 0).ToString();
+
+                ETNEGBNK.Value = BankCode;
+                ETNGBKNM.Value = Account;
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETCURR_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                if (dt == null || dt.Rows.Count == 0)
+                    return;
+
+                string CurrCode = dt.GetValue("CurrCode", 0).ToString();
+
+
+                ETCURR.Value = CurrCode;
+
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
+            }
+
+        }
+
+        private void ETAMT_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
+                // Get the value from ETAMT
+                SAPbouiCOM.EditText etAmt = (SAPbouiCOM.EditText)oForm.Items.Item("ETAMT").Specific;
+                string value = etAmt.Value;
+
+                // Set the same value to ETREMVAL
+                SAPbouiCOM.EditText etRemVal = (SAPbouiCOM.EditText)oForm.Items.Item("ETREMVAL").Specific;
+                etRemVal.Value = value;
+
+                // Set the same value to ETNETFOB
+                SAPbouiCOM.EditText etNetFob = (SAPbouiCOM.EditText)oForm.Items.Item("ETNETFOB").Specific;
+                etNetFob.Value = value;
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.StatusBar.SetText("Error in ETAMT_LostFocusAfter: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+            }
+        }
+
     }
 }

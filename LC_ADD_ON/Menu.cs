@@ -82,6 +82,29 @@ namespace LC_ADD_ON
                 {
                     SalesContract activeForm = new SalesContract();
                     activeForm.Show();
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMSLCON");
+                    try
+                    {
+                        ofrm.Freeze(true);
+
+                        //Branch Code Combo box
+                        string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
+                        SAPbouiCOM.ComboBox CBCMPCOD = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPCOD").Specific;   //object defining- Define a combo box
+                        Global.GFunc.setComboBoxValue(CBCMPCOD, sqlQuerybpl);
+
+                        string db = "@FIL_OSCM";
+                        int num = Global.GFunc.GetCodeGeneration(db);
+                        String docnum = num.ToString();
+                        SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
+                        ETDOCNO.Value = docnum;
+
+                        ofrm.Freeze(false);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Application.SBO_Application.MessageBox("Error Found : " + e.Message);
+                    }
                 }
             }
             catch (Exception ex)

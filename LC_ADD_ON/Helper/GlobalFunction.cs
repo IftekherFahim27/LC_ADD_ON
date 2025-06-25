@@ -141,5 +141,35 @@ namespace LC_ADD_ON.Helper
             oMatrix.Clear();
             oMatrix.LoadFromDataSource();
         }
+
+        public int GetCodeGeneration(string TableName)
+        {
+            int num;
+            try
+            {
+                SAPbobsCOM.Recordset businessObject = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                // businessObject.DoQuery("Select IFNULL(Max(IFNULL(\"DocEntry\",0)),0) + 1 Code From \"" + Global.oCompany.CompanyDB + "\".\"" + TableName.Trim().ToString().Replace("[", "").Replace("]", "") + "\"");
+                //   if (Global.CF.IsSAPHANA() == true)
+                //  {
+                //     businessObject.DoQuery(@"Select IFNULL(Max(IFNULL(""DocEntry"",0)),0) + 1 Code From " + TableName.Trim().ToString());
+                //  }
+                //  else
+                //  {
+                string sqlQuery = string.Format("SELECT ifnull(Max({0}DocEntry{0}),0) + 1 as  {0}Code{0} from {0}" + TableName.Trim().ToString() + "{0}", '"');
+                businessObject.DoQuery(sqlQuery);
+                //  }
+                //num=Convert.ToInt32(businessObject.Fields.Item("Code").Value)-vb.net
+                num = Convert.ToInt32(businessObject.Fields.Item("Code").Value.ToString());//c# -we need to convert from object to String , then able to change whatver type of data required.
+
+            }
+            catch (Exception exception1)
+            {
+
+                Application.SBO_Application.StatusBar.SetText("GetCodeGeneration Function Failed:" + exception1.ToString(), SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+                num = -1;
+
+            }
+            return num;
+        }
     }
 }
