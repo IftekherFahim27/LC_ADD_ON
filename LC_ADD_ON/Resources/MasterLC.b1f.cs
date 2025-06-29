@@ -91,12 +91,14 @@ namespace LC_ADD_ON.Resources
             this.FOLAMDHS = ((SAPbouiCOM.Folder)(this.GetItem("FOLAMDHS").Specific));
             this.FOLATTAC = ((SAPbouiCOM.Folder)(this.GetItem("FOLATTAC").Specific));
             this.MATCUSPO = ((SAPbouiCOM.Matrix)(this.GetItem("MATCUSPO").Specific));
+            this.MATCUSPO.ChooseFromListAfter += new SAPbouiCOM._IMatrixEvents_ChooseFromListAfterEventHandler(this.MATCUSPO_ChooseFromListAfter);
             this.GRIDADNT = ((SAPbouiCOM.Grid)(this.GetItem("GRIDADNT").Specific));
             this.MATATTAC = ((SAPbouiCOM.Matrix)(this.GetItem("MATATTAC").Specific));
             this.ETISUDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETISUDAT").Specific));
             this.STISUDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STISUDAT").Specific));
             this.STDCTYPE = ((SAPbouiCOM.StaticText)(this.GetItem("STDCTYPE").Specific));
             this.CBDCTYPE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBDCTYPE").Specific));
+            this.CBDCTYPE.ComboSelectAfter += new SAPbouiCOM._IComboBoxEvents_ComboSelectAfterEventHandler(this.CBDCTYPE_ComboSelectAfter);
             this.ADDButton = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
             this.ADDButton.PressedBefore += new SAPbouiCOM._IButtonEvents_PressedBeforeEventHandler(this.ADDButton_PressedBefore);
             this.CancelButton = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
@@ -106,6 +108,8 @@ namespace LC_ADD_ON.Resources
             this.OnCustomInitialize();
 
         }
+        // In MasterLC.b1f.cs
+        public static bool cflflag = false;
 
         /// <summary>
         /// Initialize form event. Called by framework before form creation.
@@ -215,6 +219,19 @@ namespace LC_ADD_ON.Resources
 
                 ETCUSTMR.Value = CardCode;
                 ETCDNAME.Value = CardName;
+
+                cflflag = true;
+
+                //MAtrix Load
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+                SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)oForm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)oForm.Items.Item("MATCUSPO").Specific;
+
+
+                if (MATCUSPO.VisualRowCount == 0 && cflflag == true)
+                {
+                    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");// added the line for matrix 1
+                }
 
 
             }
@@ -399,6 +416,30 @@ namespace LC_ADD_ON.Resources
                 pForm.ActiveItem = "ETEXDATE";
                 return BubbleEvent = false;
             }
+
+
+            // Preventing Empty Row to Add in the DB
+            SAPbouiCOM.DBDataSource oDBDetail = pForm.DataSources.DBDataSources.Item("@FIL_LCM2");
+
+            int rowCount = MATCUSPO.VisualRowCount;
+
+            if (rowCount > 0)
+            {
+                string lastdocnum = oDBDetail.GetValue("U_SODocNum", rowCount - 1).Trim();
+                string lastconno = oDBDetail.GetValue("U_NumATCard", rowCount - 1).Trim();
+               
+
+                if (string.IsNullOrEmpty(lastdocnum) && string.IsNullOrEmpty(lastconno) )
+                {
+                    MATCUSPO.DeleteRow(rowCount);
+                    oDBDetail.RemoveRecord(rowCount - 1);
+                    rowCount--;  // Adjust row count after deletion
+                }
+            }
+
+
+
+
             return BubbleEvent;
         }
 
@@ -478,6 +519,85 @@ namespace LC_ADD_ON.Resources
                 Application.SBO_Application.MessageBox("Error in ChooseFromListAfter: " + e.Message);
             }
 
+        }
+
+        private void CBDCTYPE_ComboSelectAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                if (pVal.ItemUID == "CBDCTYPE")
+                {
+                    SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+                    SAPbouiCOM.ComboBox oCombo = (SAPbouiCOM.ComboBox)oForm.Items.Item("CBDCTYPE").Specific;
+
+                    string selectedValue = oCombo.Value;
+
+                    if (selectedValue == "LC")
+                    {
+                        oForm.Items.Item("ETSCNO").Enabled = false;
+                    }
+                    else
+                    {
+                        oForm.Items.Item("ETSCNO").Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.MessageBox("Error: " + ex.Message);
+            }
+        }
+
+        private void MATCUSPO_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            if (pVal.ColUID == "COLSENTY") // Ensure CFL is triggered on COLTCODE
+            {
+                SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
+                SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
+                SAPbouiCOM.Form oform = Application.SBO_Application.Forms.Item(pVal.FormUID);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    string docentry = dt.GetValue("DocEntry", 0).ToString();
+                    string docnum = dt.GetValue("DocNum", 0).ToString();   
+                    string contactno = dt.GetValue("NumAtCard", 0).ToString();
+
+                    SAPbobsCOM.Recordset oRS = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                    string query = string.Format(@"SELECT SUM(""Quantity"") AS ""TotalQty"", SUM(""OpenSum"") AS ""TotalOpenSum"" FROM ""RDR1"" WHERE ""DocEntry"" = {0}", docentry);
+                    oRS.DoQuery(query);
+
+
+                    string quantity = Convert.ToString(oRS.Fields.Item("TotalQty").Value);
+                    string opensum = Convert.ToString(oRS.Fields.Item("TotalOpenSum").Value);
+
+
+                    SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)this.GetItem("MATCUSPO").Specific;
+
+                    SAPbouiCOM.EditText COLSENTY = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSENTY").Cells.Item(pVal.Row).Specific;
+                    COLSENTY.Value = docentry;
+
+
+                    SAPbouiCOM.EditText COLSORDR = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSORDR").Cells.Item(pVal.Row).Specific;
+                    COLSORDR.Value = docnum;
+
+                    SAPbouiCOM.EditText COLCPONO = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLCPONO").Cells.Item(pVal.Row).Specific;
+                    COLCPONO.Value = contactno;
+
+                    SAPbouiCOM.EditText COLQTY = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific;
+                    COLQTY.Value = quantity;
+
+
+                    SAPbouiCOM.EditText COLVALUE = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific;
+                    COLVALUE.Value = opensum;
+
+
+                    //MAtrix Load
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMASLC");
+                    SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                    SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
+                    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");
+                }
+
+            }
         }
     }
 }

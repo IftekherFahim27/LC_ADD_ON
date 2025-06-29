@@ -64,6 +64,28 @@ namespace LC_ADD_ON
                         SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;   //object defining- Define a combo box
                         Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
 
+                        //auto Document Number
+                        string db = "@FIL_OLCM";
+                        int num = Global.GFunc.GetCodeGeneration(db);
+                        String docnum = num.ToString();
+                        SAPbouiCOM.EditText ETDOCNUM = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific;
+                        ETDOCNUM.Value = docnum;
+
+                        //auto current date for DocDate
+                        SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
+                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
+                        ETDOCDAT.Value = currentDate;
+
+                        ////MAtrix Load
+                        //SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                        //SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
+
+                        
+                        //if (MATCUSPO.VisualRowCount == 0)
+                        //{
+                        //    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");// added the line for matrix 1
+                        //}
+
 
                         ofrm.Freeze(false);
 
@@ -97,6 +119,11 @@ namespace LC_ADD_ON
                         String docnum = num.ToString();
                         SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
                         ETDOCNO.Value = docnum;
+
+                        SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
+                        // Set current date in format "yyyyMMdd"
+                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
+                        ETDOCDAT.Value = currentDate;
 
                         ofrm.Freeze(false);
 
