@@ -393,6 +393,5 @@ namespace LC_ADD_ON.Resources
                 Application.SBO_Application.StatusBar.SetText("Error in ETAMT_LostFocusAfter: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
             }
         }
-
     }
 }

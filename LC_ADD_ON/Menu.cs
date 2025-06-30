@@ -80,12 +80,14 @@ namespace LC_ADD_ON
                         //SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
                         //SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
 
-                        
+
                         //if (MATCUSPO.VisualRowCount == 0)
                         //{
                         //    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");// added the line for matrix 1
-                        //}
+                        //}ETSTATUS
 
+                        SAPbouiCOM.EditText ETSTATUS = (SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific;
+                       
 
                         ofrm.Freeze(false);
 

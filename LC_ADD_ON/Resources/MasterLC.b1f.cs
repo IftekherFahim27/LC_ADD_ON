@@ -82,6 +82,7 @@ namespace LC_ADD_ON.Resources
             this.ETEXDATE = ((SAPbouiCOM.EditText)(this.GetItem("ETEXDATE").Specific));
             this.ETQTY = ((SAPbouiCOM.EditText)(this.GetItem("ETQTY").Specific));
             this.ETB2BLCP = ((SAPbouiCOM.EditText)(this.GetItem("ETB2BLCP").Specific));
+            this.ETB2BLCP.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(this.ETB2BLCP_LostFocusAfter);
             this.ETCONVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETCONVAL").Specific));
             this.CBPTRMS1 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS1").Specific));
             this.CBPTRMS2 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS2").Specific));
@@ -105,12 +106,16 @@ namespace LC_ADD_ON.Resources
             this.STREMRKS = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
             this.ETREMRKS = ((SAPbouiCOM.EditText)(this.GetItem("ETREMRKS").Specific));
             this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
+            this.ETTLQTY = ((SAPbouiCOM.EditText)(this.GetItem("ETTLQTY").Specific));
+            this.ETTLVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETTLVAL").Specific));
+            this.STTLQTY = ((SAPbouiCOM.StaticText)(this.GetItem("STTLQTY").Specific));
+            this.STTLVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STTLVAL").Specific));
             this.OnCustomInitialize();
 
         }
         // In MasterLC.b1f.cs
         public static bool cflflag = false;
-
+        
         /// <summary>
         /// Initialize form event. Called by framework before form creation.
         /// </summary>
@@ -425,11 +430,11 @@ namespace LC_ADD_ON.Resources
 
             if (rowCount > 0)
             {
-                string lastdocnum = oDBDetail.GetValue("U_SODocNum", rowCount - 1).Trim();
-                string lastconno = oDBDetail.GetValue("U_NumATCard", rowCount - 1).Trim();
+                string lastdocentry = oDBDetail.GetValue("U_SODocEntry", rowCount - 1).Trim();
+               
                
 
-                if (string.IsNullOrEmpty(lastdocnum) && string.IsNullOrEmpty(lastconno) )
+                if (string.IsNullOrEmpty(lastdocentry))
                 {
                     MATCUSPO.DeleteRow(rowCount);
                     oDBDetail.RemoveRecord(rowCount - 1);
@@ -534,11 +539,53 @@ namespace LC_ADD_ON.Resources
 
                     if (selectedValue == "LC")
                     {
+                        oForm.Freeze(true);
+
                         oForm.Items.Item("ETSCNO").Enabled = false;
+
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETSCNO").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETSCVAL").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETDESC").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETISSBNK").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETIBNKNM").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETNEGBNK").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETNGBNAM").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETVALUE").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETCURR").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETFNCOMP").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETFRGCOM").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETLOCOMP").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETLOCOMM").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETNETFOB").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETISUDAT").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETSHIPDT").Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETEXDATE").Specific).Value = "";
+
+                        
+                        SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)oForm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                        SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)oForm.Items.Item("MATCUSPO").Specific;
+                        if (MATCUSPO.VisualRowCount == 0)
+                        {
+                            Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");// added the line for matrix 1
+                        }
+
+                        oForm.Freeze(false);
                     }
                     else
                     {
+                        oForm.Freeze(true);
+
                         oForm.Items.Item("ETSCNO").Enabled = true;
+
+                       
+                        SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)oForm.Items.Item("MATCUSPO").Specific;
+
+                        for (int i = oMatrix.RowCount; i >= 1; i--)
+                        {
+                            oMatrix.DeleteRow(i);
+                        }
+
+                        oForm.Freeze(false);
                     }
                 }
             }
@@ -550,54 +597,119 @@ namespace LC_ADD_ON.Resources
 
         private void MATCUSPO_ChooseFromListAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
         {
-            if (pVal.ColUID == "COLSENTY") // Ensure CFL is triggered on COLTCODE
+            if (pVal.ColUID == "COLSENTY")
             {
                 SAPbouiCOM.ISBOChooseFromListEventArg cflArg = (SAPbouiCOM.ISBOChooseFromListEventArg)pVal;
                 SAPbouiCOM.DataTable dt = cflArg.SelectedObjects;
                 SAPbouiCOM.Form oform = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     string docentry = dt.GetValue("DocEntry", 0).ToString();
-                    string docnum = dt.GetValue("DocNum", 0).ToString();   
+                    string docnum = dt.GetValue("DocNum", 0).ToString();
                     string contactno = dt.GetValue("NumAtCard", 0).ToString();
 
                     SAPbobsCOM.Recordset oRS = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
                     string query = string.Format(@"SELECT SUM(""Quantity"") AS ""TotalQty"", SUM(""OpenSum"") AS ""TotalOpenSum"" FROM ""RDR1"" WHERE ""DocEntry"" = {0}", docentry);
                     oRS.DoQuery(query);
 
-
                     string quantity = Convert.ToString(oRS.Fields.Item("TotalQty").Value);
                     string opensum = Convert.ToString(oRS.Fields.Item("TotalOpenSum").Value);
 
-
                     SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)this.GetItem("MATCUSPO").Specific;
 
-                    SAPbouiCOM.EditText COLSENTY = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSENTY").Cells.Item(pVal.Row).Specific;
-                    COLSENTY.Value = docentry;
+                    oMatrix.FlushToDataSource();
 
+                    // Set selected values
+                    ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSENTY").Cells.Item(pVal.Row).Specific).Value = docentry;
+                    ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSORDR").Cells.Item(pVal.Row).Specific).Value = docnum;
+                    ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLCPONO").Cells.Item(pVal.Row).Specific).Value = contactno;
+                    ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific).Value = quantity;
+                    ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific).Value = opensum;
 
-                    SAPbouiCOM.EditText COLSORDR = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSORDR").Cells.Item(pVal.Row).Specific;
-                    COLSORDR.Value = docnum;
-
-                    SAPbouiCOM.EditText COLCPONO = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLCPONO").Cells.Item(pVal.Row).Specific;
-                    COLCPONO.Value = contactno;
-
-                    SAPbouiCOM.EditText COLQTY = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific;
-                    COLQTY.Value = quantity;
-
-
-                    SAPbouiCOM.EditText COLVALUE = (SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific;
-                    COLVALUE.Value = opensum;
-
-
-                    //MAtrix Load
-                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMASLC");
-                    SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                    // Add new row only if it's the last row and filled
+                    SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
+                    SAPbouiCOM.DBDataSource DBDataSourceLine = ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
                     SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
-                    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");
-                }
 
+
+                    double totalQty = 0;
+                    double totalvalue = 0;
+
+                    for (int i = 1; i <= oMatrix.RowCount; i++)
+                    {
+                        string val = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(i).Specific).Value;
+
+                        if (double.TryParse(val, out double qty))
+                        {
+                            totalQty += qty;
+                        }
+
+                        string val2 = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(i).Specific).Value;
+
+                        if (double.TryParse(val2, out double qty2))
+                        {
+                            totalvalue += qty2;
+                        }
+
+                    }
+
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETTLQTY").Specific).Value = totalQty.ToString("0.00");
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETTLVAL").Specific).Value = totalvalue.ToString("0.00");
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETVALUE").Specific).Value = totalvalue.ToString("0.00");
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETNETFOB").Specific).Value = totalvalue.ToString("0.00");
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETQTY").Specific).Value = totalQty.ToString("0.00");
+
+
+                    int lastRow = MATCUSPO.RowCount;
+                    bool lastRowHasData = !string.IsNullOrEmpty(((SAPbouiCOM.EditText)MATCUSPO.Columns.Item("COLSENTY").Cells.Item(lastRow).Specific).Value);
+
+                    if (pVal.Row == lastRow && lastRowHasData)
+                    {
+
+                        Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");
+
+
+                    }
+                }
             }
         }
+
+        private SAPbouiCOM.EditText ETTLQTY;
+        private SAPbouiCOM.EditText ETTLVAL;
+        private SAPbouiCOM.StaticText STTLQTY;
+        private SAPbouiCOM.StaticText STTLVAL;
+
+        private void ETB2BLCP_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
+                // Get percentage value
+                SAPbouiCOM.EditText etPercent = (SAPbouiCOM.EditText)oForm.Items.Item("ETB2BLCP").Specific;
+                string percentText = etPercent.Value.Trim();
+                double percentage = 0;
+                double.TryParse(percentText, out percentage);
+
+                // Get original value
+                SAPbouiCOM.EditText etOriginal = (SAPbouiCOM.EditText)oForm.Items.Item("ETVALUE").Specific;
+                string originalText = etOriginal.Value.Trim();
+                double originalValue = 0;
+                double.TryParse(originalText, out originalValue);
+
+                // Calculate remaining value
+                double remainingValue = originalValue - (originalValue * percentage / 100);
+
+                // Set remaining value in ETCONVAL
+                SAPbouiCOM.EditText etResult = (SAPbouiCOM.EditText)oForm.Items.Item("ETCONVAL").Specific;
+                etResult.Value = remainingValue.ToString("0.00"); // Format to 2 decimals
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.MessageBox("Error: " + ex.Message);
+            }
+        }
+
     }
 }
