@@ -27,27 +27,19 @@ namespace LC_ADD_ON.Resources
             this.STADNTNO = ((SAPbouiCOM.StaticText)(this.GetItem("STADNTNO").Specific));
             this.STISSBNK = ((SAPbouiCOM.StaticText)(this.GetItem("STISSBNK").Specific));
             this.STNEGBNK = ((SAPbouiCOM.StaticText)(this.GetItem("STNEGBNK").Specific));
-            this.STJOBNO = ((SAPbouiCOM.StaticText)(this.GetItem("STJOBNO").Specific));
             this.STVALUE = ((SAPbouiCOM.StaticText)(this.GetItem("STVALUE").Specific));
-            this.STFNCOMP = ((SAPbouiCOM.StaticText)(this.GetItem("STFNCOMP").Specific));
-            this.STLOCOMP = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCOMP").Specific));
-            this.STNETFOB = ((SAPbouiCOM.StaticText)(this.GetItem("STNETFOB").Specific));
             this.STSTATUS = ((SAPbouiCOM.StaticText)(this.GetItem("STSTATUS").Specific));
             this.STSCVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STSCVAL").Specific));
             this.STCURR = ((SAPbouiCOM.StaticText)(this.GetItem("STCURR").Specific));
-            this.STFRGCOM = ((SAPbouiCOM.StaticText)(this.GetItem("STFRGCOM").Specific));
-            this.STLOCOMM = ((SAPbouiCOM.StaticText)(this.GetItem("STLOCOMM").Specific));
             this.STDOCNUM = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCNUM").Specific));
             this.STDOCDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCDAT").Specific));
             this.STSHIPDT = ((SAPbouiCOM.StaticText)(this.GetItem("STSHIPDT").Specific));
             this.STEXDATE = ((SAPbouiCOM.StaticText)(this.GetItem("STEXDATE").Specific));
-            this.STQTY = ((SAPbouiCOM.StaticText)(this.GetItem("STQTY").Specific));
             this.STB2BLCP = ((SAPbouiCOM.StaticText)(this.GetItem("STB2BLCP").Specific));
             this.STCONVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STCONVAL").Specific));
             this.STPTRMS1 = ((SAPbouiCOM.StaticText)(this.GetItem("STPTRMS1").Specific));
             this.STPTRMS2 = ((SAPbouiCOM.StaticText)(this.GetItem("STPTRMS2").Specific));
             this.STIOTRMS = ((SAPbouiCOM.StaticText)(this.GetItem("STIOTRMS").Specific));
-            this.STAPRATC = ((SAPbouiCOM.StaticText)(this.GetItem("STAPRATC").Specific));
             this.CBCMPANY = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMPANY").Specific));
             this.ETCUSTMR = ((SAPbouiCOM.EditText)(this.GetItem("ETCUSTMR").Specific));
             this.ETCUSTMR.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCUSTMR_ChooseFromListAfter);
@@ -58,6 +50,7 @@ namespace LC_ADD_ON.Resources
             this.ETSCNO.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETSCNO_ChooseFromListAfter);
             this.ETSCNTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETSCNTRY").Specific));
             this.ETLCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETLCNO").Specific));
+            this.ETLCNO.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(this.ETLCNO_LostFocusAfter);
             this.ETDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETDESC").Specific));
             this.ETADNTNO = ((SAPbouiCOM.EditText)(this.GetItem("ETADNTNO").Specific));
             this.ETISSBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETISSBNK").Specific));
@@ -66,28 +59,20 @@ namespace LC_ADD_ON.Resources
             this.ETNEGBNK = ((SAPbouiCOM.EditText)(this.GetItem("ETNEGBNK").Specific));
             this.ETNEGBNK.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETNEGBNK_ChooseFromListAfter);
             this.ETNGBNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETNGBNAM").Specific));
-            this.ETJOBNO = ((SAPbouiCOM.EditText)(this.GetItem("ETJOBNO").Specific));
-            this.ETJOBNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETJOBNAM").Specific));
             this.ETVALUE = ((SAPbouiCOM.EditText)(this.GetItem("ETVALUE").Specific));
-            this.ETFNCOMP = ((SAPbouiCOM.EditText)(this.GetItem("ETFNCOMP").Specific));
-            this.ETLOCOMP = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCOMP").Specific));
-            this.ETNETFOB = ((SAPbouiCOM.EditText)(this.GetItem("ETNETFOB").Specific));
             this.ETCURR = ((SAPbouiCOM.EditText)(this.GetItem("ETCURR").Specific));
             this.ETCURR.ChooseFromListAfter += new SAPbouiCOM._IEditTextEvents_ChooseFromListAfterEventHandler(this.ETCURR_ChooseFromListAfter);
-            this.ETFRGCOM = ((SAPbouiCOM.EditText)(this.GetItem("ETFRGCOM").Specific));
-            this.ETLOCOMM = ((SAPbouiCOM.EditText)(this.GetItem("ETLOCOMM").Specific));
             this.ETDOCNUM = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCNUM").Specific));
             this.ETDOCDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCDAT").Specific));
             this.ETSHIPDT = ((SAPbouiCOM.EditText)(this.GetItem("ETSHIPDT").Specific));
             this.ETEXDATE = ((SAPbouiCOM.EditText)(this.GetItem("ETEXDATE").Specific));
-            this.ETQTY = ((SAPbouiCOM.EditText)(this.GetItem("ETQTY").Specific));
             this.ETB2BLCP = ((SAPbouiCOM.EditText)(this.GetItem("ETB2BLCP").Specific));
             this.ETB2BLCP.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(this.ETB2BLCP_LostFocusAfter);
             this.ETCONVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETCONVAL").Specific));
             this.CBPTRMS1 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS1").Specific));
+            this.CBPTRMS1.ComboSelectAfter += new SAPbouiCOM._IComboBoxEvents_ComboSelectAfterEventHandler(this.CBPTRMS1_ComboSelectAfter);
             this.CBPTRMS2 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS2").Specific));
             this.CBIOTRMS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBIOTRMS").Specific));
-            this.ETAPRATC = ((SAPbouiCOM.EditText)(this.GetItem("ETAPRATC").Specific));
             this.FOLCUSPO = ((SAPbouiCOM.Folder)(this.GetItem("FOLCUSPO").Specific));
             this.FOLAMDHS = ((SAPbouiCOM.Folder)(this.GetItem("FOLAMDHS").Specific));
             this.FOLATTAC = ((SAPbouiCOM.Folder)(this.GetItem("FOLATTAC").Specific));
@@ -106,16 +91,16 @@ namespace LC_ADD_ON.Resources
             this.STREMRKS = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
             this.ETREMRKS = ((SAPbouiCOM.EditText)(this.GetItem("ETREMRKS").Specific));
             this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
-            this.ETTLQTY = ((SAPbouiCOM.EditText)(this.GetItem("ETTLQTY").Specific));
-            this.ETTLVAL = ((SAPbouiCOM.EditText)(this.GetItem("ETTLVAL").Specific));
-            this.STTLQTY = ((SAPbouiCOM.StaticText)(this.GetItem("STTLQTY").Specific));
-            this.STTLVAL = ((SAPbouiCOM.StaticText)(this.GetItem("STTLVAL").Specific));
+            this.STRSCAMT = ((SAPbouiCOM.StaticText)(this.GetItem("STRSCAMT").Specific));
+            this.ETRSCAMT = ((SAPbouiCOM.EditText)(this.GetItem("ETRSCAMT").Specific));
+            this.EditText1 = ((SAPbouiCOM.EditText)(this.GetItem("ETSTFULL").Specific));
             this.OnCustomInitialize();
 
         }
         // In MasterLC.b1f.cs
         public static bool cflflag = false;
-        
+        public static double remain = 0.0;
+
         /// <summary>
         /// Initialize form event. Called by framework before form creation.
         /// </summary>
@@ -137,27 +122,19 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.StaticText STADNTNO;
         private SAPbouiCOM.StaticText STISSBNK;
         private SAPbouiCOM.StaticText STNEGBNK;
-        private SAPbouiCOM.StaticText STJOBNO;
         private SAPbouiCOM.StaticText STVALUE;
-        private SAPbouiCOM.StaticText STFNCOMP;
-        private SAPbouiCOM.StaticText STLOCOMP;
-        private SAPbouiCOM.StaticText STNETFOB;
         private SAPbouiCOM.StaticText STSTATUS;
         private SAPbouiCOM.StaticText STSCVAL;
         private SAPbouiCOM.StaticText STCURR;
-        private SAPbouiCOM.StaticText STFRGCOM;
-        private SAPbouiCOM.StaticText STLOCOMM;
         private SAPbouiCOM.StaticText STDOCNUM;
         private SAPbouiCOM.StaticText STDOCDAT;
         private SAPbouiCOM.StaticText STSHIPDT;
         private SAPbouiCOM.StaticText STEXDATE;
-        private SAPbouiCOM.StaticText STQTY;
         private SAPbouiCOM.StaticText STB2BLCP;
         private SAPbouiCOM.StaticText STCONVAL;
         private SAPbouiCOM.StaticText STPTRMS1;
         private SAPbouiCOM.StaticText STPTRMS2;
         private SAPbouiCOM.StaticText STIOTRMS;
-        private SAPbouiCOM.StaticText STAPRATC;
         private SAPbouiCOM.ComboBox CBCMPANY;
         private SAPbouiCOM.EditText ETCUSTMR;
         private SAPbouiCOM.EditText ETSTATUS;
@@ -172,26 +149,17 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETIBNKNM;
         private SAPbouiCOM.EditText ETNEGBNK;
         private SAPbouiCOM.EditText ETNGBNAM;
-        private SAPbouiCOM.EditText ETJOBNO;
-        private SAPbouiCOM.EditText ETJOBNAM;
         private SAPbouiCOM.EditText ETVALUE;
-        private SAPbouiCOM.EditText ETFNCOMP;
-        private SAPbouiCOM.EditText ETLOCOMP;
-        private SAPbouiCOM.EditText ETNETFOB;
         private SAPbouiCOM.EditText ETCURR;
-        private SAPbouiCOM.EditText ETFRGCOM;
-        private SAPbouiCOM.EditText ETLOCOMM;
         private SAPbouiCOM.EditText ETDOCNUM;
         private SAPbouiCOM.EditText ETDOCDAT;
         private SAPbouiCOM.EditText ETSHIPDT;
         private SAPbouiCOM.EditText ETEXDATE;
-        private SAPbouiCOM.EditText ETQTY;
         private SAPbouiCOM.EditText ETB2BLCP;
         private SAPbouiCOM.EditText ETCONVAL;
         private SAPbouiCOM.ComboBox CBPTRMS1;
         private SAPbouiCOM.ComboBox CBPTRMS2;
         private SAPbouiCOM.ComboBox CBIOTRMS;
-        private SAPbouiCOM.EditText ETAPRATC;
         private SAPbouiCOM.Folder FOLCUSPO;
         private SAPbouiCOM.Folder FOLAMDHS;
         private SAPbouiCOM.Folder FOLATTAC;
@@ -317,9 +285,6 @@ namespace LC_ADD_ON.Resources
 
                 ETCURR.Value = CurrCode;
                
-
-
-
 
             }
             catch (Exception e)
@@ -460,13 +425,8 @@ namespace LC_ADD_ON.Resources
 
                 string SCNo = dt.GetValue("U_SCNo", 0).ToString();
                 string SCVal = dt.GetValue("U_Amt", 0).ToString();
-                string Val = dt.GetValue("U_Amt", 0).ToString();
-                string FRGCOMP = dt.GetValue("U_ForCommP", 0).ToString();
-                string FRGCOM = dt.GetValue("U_ForComm", 0).ToString();
-                string LocCommP = dt.GetValue("U_LocCommP", 0).ToString();
-                string LocComm = dt.GetValue("U_LocComm", 0).ToString();
-                string conamt = dt.GetValue("U_ConAmt", 0).ToString();
-                string netfob = dt.GetValue("U_NetFOB", 0).ToString();
+                string Val = dt.GetValue("U_Amt", 0).ToString();          
+                string conamt = dt.GetValue("U_ConAmt", 0).ToString();              
                 string ISSBNK = dt.GetValue("U_IssueBank", 0).ToString();
                 string ISSBKNM = dt.GetValue("U_IssBName", 0).ToString();
                 string NEGBNK = dt.GetValue("U_NegBank", 0).ToString();
@@ -474,6 +434,7 @@ namespace LC_ADD_ON.Resources
                 string issudate = dt.GetValue("U_IssueDate", 0).ToString();
                 string shipdate = dt.GetValue("U_ShipDate", 0).ToString();
                 string expdate = dt.GetValue("U_ExpDate", 0).ToString();
+                string SCntry = dt.GetValue("DocEntry", 0).ToString();
 
                 SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
                 oForm.Items.Item("ETISSBNK").Enabled = false;
@@ -483,24 +444,14 @@ namespace LC_ADD_ON.Resources
 
                 ETSCNO.Value = SCNo;
                 ETSCVAL.Value = SCVal;
-                ETVALUE.Value = Val;
-                ETFNCOMP.Value = FRGCOMP;
-                ETFRGCOM.Value = FRGCOM;
-                ETLOCOMP.Value = LocCommP;
-                ETLOCOMM.Value = LocComm;
+                ETVALUE.Value = SCVal;
                 ETCONVAL.Value = conamt;
-                ETNETFOB.Value = netfob;
-
-               
-              
                 ETISSBNK.Value = ISSBNK;
                 ETIBNKNM.Value = ISSBKNM;
                 ETNEGBNK.Value = NEGBNK;
                 ETNGBNAM.Value = NEGBKNM;
-
-                //ETISUDAT.Value = issudate;
-                // ETSHIPDT.Value = shipdate;
-                // ETEXDATE.Value = expdate;
+                ETSCNTRY.Value = SCntry;
+                
 
                 // Safely get and format the date values
                 DateTime issueDt = Convert.ToDateTime(issudate);
@@ -511,6 +462,31 @@ namespace LC_ADD_ON.Resources
                 ETISUDAT.Value = issueDt.ToString("yyyyMMdd");
                 ETSHIPDT.Value = shipDt.ToString("yyyyMMdd");
                 ETEXDATE.Value = expDt.ToString("yyyyMMdd");
+
+
+                SAPbobsCOM.Recordset oRS = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+               
+                 string query = string.Format(@"SELECT IFNULL(SUM(""U_Amt""), 0) AS ""TotalAmt"" 
+                 FROM ""@FIL_OLCM"" 
+                 WHERE ""U_SCNTRY"" = {0}", SCntry);
+
+
+                oRS.DoQuery(query);
+
+                double totalAmt = 0.0;
+                if (!oRS.EoF)
+                {
+                     totalAmt = Convert.ToDouble(oRS.Fields.Item("TotalAmt").Value);
+                    // You can now use totalAmt as needed
+                }
+
+                double baseAmt = Convert.ToDouble(SCVal);
+                remain = baseAmt - totalAmt;
+
+                string remainAmt = Convert.ToString(remain);
+
+                ETRSCAMT.Value = remainAmt;
+
 
 
 
@@ -542,6 +518,7 @@ namespace LC_ADD_ON.Resources
                         oForm.Freeze(true);
 
                         oForm.Items.Item("ETSCNO").Enabled = false;
+                       
 
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETSCNO").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETSCVAL").Specific).Value = "";
@@ -552,11 +529,6 @@ namespace LC_ADD_ON.Resources
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETNGBNAM").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETVALUE").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETCURR").Specific).Value = "";
-                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETFNCOMP").Specific).Value = "";
-                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETFRGCOM").Specific).Value = "";
-                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETLOCOMP").Specific).Value = "";
-                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETLOCOMM").Specific).Value = "";
-                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETNETFOB").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETISUDAT").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETSHIPDT").Specific).Value = "";
                         ((SAPbouiCOM.EditText)oForm.Items.Item("ETEXDATE").Specific).Value = "";
@@ -576,14 +548,15 @@ namespace LC_ADD_ON.Resources
                         oForm.Freeze(true);
 
                         oForm.Items.Item("ETSCNO").Enabled = true;
+                        
 
-                       
-                        SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)oForm.Items.Item("MATCUSPO").Specific;
 
-                        for (int i = oMatrix.RowCount; i >= 1; i--)
-                        {
-                            oMatrix.DeleteRow(i);
-                        }
+                        //SAPbouiCOM.Matrix oMatrix = (SAPbouiCOM.Matrix)oForm.Items.Item("MATCUSPO").Specific;
+
+                        //for (int i = oMatrix.RowCount; i >= 1; i--)
+                        //{
+                        //    oMatrix.DeleteRow(i);
+                        //}
 
                         oForm.Freeze(false);
                     }
@@ -627,38 +600,42 @@ namespace LC_ADD_ON.Resources
                     ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific).Value = quantity;
                     ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific).Value = opensum;
 
-                    // Add new row only if it's the last row and filled
+                   
                     SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
                     SAPbouiCOM.DBDataSource DBDataSourceLine = ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
                     SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
 
 
-                    double totalQty = 0;
+                   
                     double totalvalue = 0;
 
                     for (int i = 1; i <= oMatrix.RowCount; i++)
                     {
-                        string val = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(i).Specific).Value;
+                       
+                        string val = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(i).Specific).Value;
 
                         if (double.TryParse(val, out double qty))
                         {
-                            totalQty += qty;
-                        }
-
-                        string val2 = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(i).Specific).Value;
-
-                        if (double.TryParse(val2, out double qty2))
-                        {
-                            totalvalue += qty2;
+                            totalvalue += qty;
                         }
 
                     }
 
-                    ((SAPbouiCOM.EditText)oform.Items.Item("ETTLQTY").Specific).Value = totalQty.ToString("0.00");
-                    ((SAPbouiCOM.EditText)oform.Items.Item("ETTLVAL").Specific).Value = totalvalue.ToString("0.00");
+                    if (totalvalue > remain)
+                    {
+                        Application.SBO_Application.StatusBar.SetText("Amount Exceeds the Remaining Limit", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                        // Optionally reset the current row’s values
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSENTY").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSORDR").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLCPONO").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific).Value = "";
+                        return;
+                    }
+
+
                     ((SAPbouiCOM.EditText)oform.Items.Item("ETVALUE").Specific).Value = totalvalue.ToString("0.00");
-                    ((SAPbouiCOM.EditText)oform.Items.Item("ETNETFOB").Specific).Value = totalvalue.ToString("0.00");
-                    ((SAPbouiCOM.EditText)oform.Items.Item("ETQTY").Specific).Value = totalQty.ToString("0.00");
+                  
 
 
                     int lastRow = MATCUSPO.RowCount;
@@ -674,11 +651,6 @@ namespace LC_ADD_ON.Resources
                 }
             }
         }
-
-        private SAPbouiCOM.EditText ETTLQTY;
-        private SAPbouiCOM.EditText ETTLVAL;
-        private SAPbouiCOM.StaticText STTLQTY;
-        private SAPbouiCOM.StaticText STTLVAL;
 
         private void ETB2BLCP_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
         {
@@ -711,5 +683,70 @@ namespace LC_ADD_ON.Resources
             }
         }
 
+        private SAPbouiCOM.StaticText STRSCAMT;
+        private SAPbouiCOM.EditText ETRSCAMT;
+
+        private void ETLCNO_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
+                // Get the entered LC No
+                string lcNo = ((SAPbouiCOM.EditText)oForm.Items.Item("ETLCNO").Specific).Value.Trim();
+
+                if (!string.IsNullOrEmpty(lcNo))
+                {
+                    // Create recordset
+                    SAPbobsCOM.Recordset oRS = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                    // Just check for existence
+                    string query = $@"SELECT 1 FROM ""@FIL_OLCM"" WHERE ""U_LCNo"" = '{lcNo.Replace("'", "''")}'";
+
+                    oRS.DoQuery(query);
+
+                    if (!oRS.EoF)
+                    {
+                        Application.SBO_Application.StatusBar.SetText("LC No already exists!", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                        ((SAPbouiCOM.EditText)oForm.Items.Item("ETLCNO").Specific).Value = "";
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.StatusBar.SetText("Error: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        private void CBPTRMS1_ComboSelectAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            try
+            {
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
+                // Get selected value from CBPTRMS1
+                SAPbouiCOM.ComboBox cb1 = (SAPbouiCOM.ComboBox)oForm.Items.Item("CBPTRMS1").Specific;
+                string selectedValue = cb1.Selected == null ? "" : cb1.Selected.Value;
+
+                // If selected value is "A", then set CBPTRMS2 to "A"
+                if (selectedValue == "A")
+                {
+                    SAPbouiCOM.ComboBox cb2 = (SAPbouiCOM.ComboBox)oForm.Items.Item("CBPTRMS2").Specific;
+                    cb2.Select("H", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
+                if (selectedValue == "V")
+                {
+                    SAPbouiCOM.ComboBox cb2 = (SAPbouiCOM.ComboBox)oForm.Items.Item("CBPTRMS2").Specific;
+                    cb2.Select("O", SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.StatusBar.SetText("Error: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+            }
+        }
+
+        private SAPbouiCOM.EditText EditText1;
     }
 }

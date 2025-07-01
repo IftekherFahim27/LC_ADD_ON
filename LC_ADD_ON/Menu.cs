@@ -48,10 +48,21 @@ namespace LC_ADD_ON
                     {
                         ofrm.Freeze(true);
 
+                        //Status
+                        string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
+                        if(status == "O")
+                        {
+                            SAPbouiCOM.EditText ETSTFULL = (SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific;
+                            ETSTFULL.Value = "Open";
+                        }
+
+                       
+
                         //Branch Code Combo box
                         string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
                         SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;   //object defining- Define a combo box
                         Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+                        CBCMPANY.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
 
 
                         //Payment type Combo box
