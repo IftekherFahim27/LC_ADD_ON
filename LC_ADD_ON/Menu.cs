@@ -13,6 +13,7 @@ namespace LC_ADD_ON
         public void BasicStart()
         {
             CompanyConnection(); //1)Company connection 
+
             //Parent
             CreateMainMenu("43520", "FIL_MN_LC", "Commercial ", 18, 2, false);//parent 2 step
            
@@ -41,111 +42,228 @@ namespace LC_ADD_ON
             {
                 if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_MASTERLC")
                 {
+                    string formUID = "FRMMASLC"; // Unique ID for the form
+                                                           // Check if the form is already open
+                    if (IsFormOpen(formUID))
+                    {
+                        Global.G_UI_Application.Forms.Item(formUID).Select();
+                        Global.G_UI_Application.StatusBar.SetText("Form already opened once.",
+                            SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+                        return;
+                    }
+
                     MasterLC activeForm = new MasterLC();
                     activeForm.Show();
                     SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMASLC");
+
                     try
                     {
-                        ofrm.Freeze(true);
-
-                        //Status
-                        string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
-                        if(status == "O")
-                        {
-                            SAPbouiCOM.EditText ETSTFULL = (SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific;
-                            ETSTFULL.Value = "Open";
-                        }
-
-                       
-
-                        //Branch Code Combo box
-                        string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
-                        SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;   //object defining- Define a combo box
-                        Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
-                        CBCMPANY.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
-
-
-                        //Payment type Combo box
-                        string sqlQueryptrms = string.Format("SELECT {0}FldValue{0},{0}Descr{0} FROM {0}UFD1{0}  where {0}TableID{0} = '@FIL_OLCB' AND {0}FieldID{0} = 24 ", '"');
-                        SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;   //object defining- Define a combo box
-                        Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
-
-                        //Days type Combo box
-                        string sqlQueryptrms2 = string.Format("SELECT {0}FldValue{0},{0}Descr{0} FROM {0}UFD1{0}  where {0}TableID{0} = '@FIL_OLCB' AND {0}FieldID{0} = 25 ", '"');
-                        SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;   //object defining- Define a combo box
-                        Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
-
-                        //auto Document Number
-                        string db = "@FIL_OLCM";
-                        int num = Global.GFunc.GetCodeGeneration(db);
-                        String docnum = num.ToString();
-                        SAPbouiCOM.EditText ETDOCNUM = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific;
-                        ETDOCNUM.Value = docnum;
-
-                        //auto current date for DocDate
-                        SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
-                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
-                        ETDOCDAT.Value = currentDate;
-
-                        ////MAtrix Load
-                        //SAPbouiCOM.DBDataSource DBDataSourceLine = (SAPbouiCOM.DBDataSource)ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
-                        //SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
-
-
-                        //if (MATCUSPO.VisualRowCount == 0)
-                        //{
-                        //    Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");// added the line for matrix 1
-                        //}ETSTATUS
-
-                        SAPbouiCOM.EditText ETSTATUS = (SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific;
-                       
-
-                        ofrm.Freeze(false);
-
+                        InitializeMasterLCForm(ofrm);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Application.SBO_Application.MessageBox("Error Found : " + e.Message);
                     }
+
+
+
                 }
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_B2BLC")
                 {
+                    string formUID = "FRMIMPB2BLC"; // Unique ID for the form
+                                                 // Check if the form is already open
+                    if (IsFormOpen(formUID))
+                    {
+                        Global.G_UI_Application.Forms.Item(formUID).Select();
+                        Global.G_UI_Application.StatusBar.SetText("Form already opened once.",
+                            SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+                        return;
+                    }
                     ImportLCB2B activeForm = new ImportLCB2B();
                     activeForm.Show();
                 }
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_SALCON")
                 {
+                    string formUID = "FRMSLCON"; // Unique ID for the form
+                                                    // Check if the form is already open
+                    if (IsFormOpen(formUID))
+                    {
+                        Global.G_UI_Application.Forms.Item(formUID).Select();
+                        Global.G_UI_Application.StatusBar.SetText("Form already opened once.",
+                            SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+                        return;
+                    }
+
+
                     SalesContract activeForm = new SalesContract();
                     activeForm.Show();
                     SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMSLCON");
                     try
                     {
-                        ofrm.Freeze(true);
-
-                        //Branch Code Combo box
-                        string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
-                        SAPbouiCOM.ComboBox CBCMPCOD = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPCOD").Specific;   //object defining- Define a combo box
-                        Global.GFunc.setComboBoxValue(CBCMPCOD, sqlQuerybpl);
-
-                        string db = "@FIL_OSCM";
-                        int num = Global.GFunc.GetCodeGeneration(db);
-                        String docnum = num.ToString();
-                        SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
-                        ETDOCNO.Value = docnum;
-
-                        SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
-                        // Set current date in format "yyyyMMdd"
-                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
-                        ETDOCDAT.Value = currentDate;
-
-                        ofrm.Freeze(false);
-
+                        InitializeSalesContractForm(ofrm);
                     }
                     catch (Exception e)
                     {
                         Application.SBO_Application.MessageBox("Error Found : " + e.Message);
                     }
                 }
+                //Add Form Mode Menu
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1282")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                InitializeMasterLCForm(ofrm);
+
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                                
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
+                                break;
+                            }
+
+                    }
+
+
+
+                }
+                //Find Mode
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1281")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                InitializeMasterLCForm(ofrm);
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                               
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
+                                break;
+                            }
+
+                    }
+                }
+                //First
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1288")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                InitializeMasterLCForm(ofrm);
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                                
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
+                                break;
+                            }
+
+                    }
+                }
+                //Previous
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1289")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                                
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
+                                break;
+                            }
+
+                    }
+                }
+                //Next
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1290")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                               
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
+                                break;
+                            }
+
+                    }
+                }
+                //Last
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1291")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                               
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+                               
+
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+
+                                break;
+                            }
+
+                    }
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -275,6 +393,79 @@ namespace LC_ADD_ON
 
             }
         }
+
+        private void InitializeMasterLCForm(SAPbouiCOM.Form ofrm)
+        {
+            try
+            {
+                ofrm.Freeze(true);
+
+                // Status
+                string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
+                if (status == "O")
+                {
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
+                }
+
+                // Branch combo
+                string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
+                SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;
+                Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+                CBCMPANY.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+                // Payment terms
+                string sqlQueryptrms = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 24";
+                SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
+
+                // Days terms
+                string sqlQueryptrms2 = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 25";
+                SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+                // Document number
+                int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+                ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+
+                // Document date
+                ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+            }
+            finally
+            {
+                ofrm.Freeze(false);
+            }
+        }
+
+        private void InitializeSalesContractForm(SAPbouiCOM.Form ofrm)
+        {
+            try
+            {
+                ofrm.Freeze(true);
+
+                //Branch Code Combo box
+                string sqlQuerybpl = string.Format("SELECT {0}BPLId{0},{0}BPLName{0} FROM {0}OBPL{0}", '"');
+                SAPbouiCOM.ComboBox CBCMPCOD = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPCOD").Specific;   //object defining- Define a combo box
+                Global.GFunc.setComboBoxValue(CBCMPCOD, sqlQuerybpl);
+
+                string db = "@FIL_OSCM";
+                int num = Global.GFunc.GetCodeGeneration(db);
+                String docnum = num.ToString();
+                SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
+                ETDOCNO.Value = docnum;
+
+                SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
+                // Set current date in format "yyyyMMdd"
+                string currentDate = DateTime.Now.ToString("yyyyMMdd");
+                ETDOCDAT.Value = currentDate;
+
+                
+            }
+            finally
+            {
+                ofrm.Freeze(false);
+            }
+        }
+
 
 
     }
