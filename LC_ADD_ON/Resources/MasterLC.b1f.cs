@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+
 namespace LC_ADD_ON.Resources
 {
     [FormAttribute("LC_ADD_ON.Resources.MasterLC", "Resources/MasterLC.b1f")]
@@ -79,7 +81,6 @@ namespace LC_ADD_ON.Resources
             this.MATCUSPO = ((SAPbouiCOM.Matrix)(this.GetItem("MATCUSPO").Specific));
             this.MATCUSPO.ChooseFromListAfter += new SAPbouiCOM._IMatrixEvents_ChooseFromListAfterEventHandler(this.MATCUSPO_ChooseFromListAfter);
             this.GRIDADNT = ((SAPbouiCOM.Grid)(this.GetItem("GRIDADNT").Specific));
-            this.MATATTAC = ((SAPbouiCOM.Matrix)(this.GetItem("MATATTAC").Specific));
             this.ETISUDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETISUDAT").Specific));
             this.STISUDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STISUDAT").Specific));
             this.STDCTYPE = ((SAPbouiCOM.StaticText)(this.GetItem("STDCTYPE").Specific));
@@ -93,7 +94,14 @@ namespace LC_ADD_ON.Resources
             this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
             this.STRSCAMT = ((SAPbouiCOM.StaticText)(this.GetItem("STRSCAMT").Specific));
             this.ETRSCAMT = ((SAPbouiCOM.EditText)(this.GetItem("ETRSCAMT").Specific));
-            this.EditText1 = ((SAPbouiCOM.EditText)(this.GetItem("ETSTFULL").Specific));
+            this.ETSTFULL = ((SAPbouiCOM.EditText)(this.GetItem("ETSTFULL").Specific));
+            this.BRWSBTN = ((SAPbouiCOM.Button)(this.GetItem("BRWSBTN").Specific));
+            this.BRWSBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.BRWSBTN_ClickAfter);
+            this.DISPBTN = ((SAPbouiCOM.Button)(this.GetItem("DISPBTN").Specific));
+            this.DISPBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.DISPBTN_ClickAfter);
+            this.DELBTN = ((SAPbouiCOM.Button)(this.GetItem("DELBTN").Specific));
+            this.DELBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.DELBTN_ClickAfter);
+            this.MATATTAC = ((SAPbouiCOM.Matrix)(this.GetItem("MATATTAC").Specific));
             this.OnCustomInitialize();
 
         }
@@ -165,7 +173,6 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.Folder FOLATTAC;
         private SAPbouiCOM.Matrix MATCUSPO;
         private SAPbouiCOM.Grid GRIDADNT;
-        private SAPbouiCOM.Matrix MATATTAC;
         private SAPbouiCOM.EditText ETISUDAT;
         private SAPbouiCOM.StaticText STISUDAT;
         private SAPbouiCOM.StaticText STDCTYPE;
@@ -747,6 +754,113 @@ namespace LC_ADD_ON.Resources
             }
         }
 
-        private SAPbouiCOM.EditText EditText1;
+        private SAPbouiCOM.EditText ETSTFULL;
+        private SAPbouiCOM.Button BRWSBTN;
+        private SAPbouiCOM.Button DISPBTN;
+        private SAPbouiCOM.Button DELBTN;
+
+        private void BRWSBTN_ClickAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
+            SAPbouiCOM.DBDataSource DBDataSourceLine = ofrm.DataSources.DBDataSources.Item("@FIL_LCM1");
+            SAPbouiCOM.Matrix MATATTAC = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATATTAC").Specific;
+
+            // Call file dialog helper
+            string filePath = FileDialogHelper.ShowFileDialog();
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                int lastRow = MATATTAC.VisualRowCount;
+
+                // Check if matrix has no rows or the last row's COLATTAC is filled
+                bool needNewRow = (lastRow == 0) ||
+                                  !string.IsNullOrEmpty(((SAPbouiCOM.EditText)MATATTAC.Columns.Item("COLATTAC").Cells.Item(lastRow).Specific).Value);
+
+                if (needNewRow)
+                {
+                    // Add new line only if needed
+                    Global.GFunc.SetNewLine(MATATTAC, DBDataSourceLine, 1, "");
+                    lastRow = MATATTAC.VisualRowCount; // Update to new last row
+                }
+
+                // Set the file path in the appropriate row
+                ((SAPbouiCOM.EditText)MATATTAC.Columns.Item("COLATTAC").Cells.Item(lastRow).Specific).Value = filePath;
+                MATATTAC.FlushToDataSource();
+            }
+        }
+
+
+
+        private void DISPBTN_ClickAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
+            SAPbouiCOM.Matrix MATATTAC = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATATTAC").Specific;
+
+            for (int i = 1; i <= MATATTAC.RowCount; i++)
+            {
+                if (MATATTAC.IsRowSelected(i))
+                {
+                    string filePath = ((SAPbouiCOM.EditText)MATATTAC.Columns.Item("COLATTAC").Cells.Item(i).Specific).Value;
+
+                    if (!string.IsNullOrEmpty(filePath) && System.IO.File.Exists(filePath))
+                    {
+                        System.Diagnostics.Process.Start(filePath);
+                    }
+                    else
+                    {
+                        Application.SBO_Application.MessageBox("File does not exist or path is empty.");
+                    }
+                    break;
+                }
+            }
+        }
+
+
+        private void DELBTN_ClickAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
+            SAPbouiCOM.Matrix MATATTAC = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATATTAC").Specific;
+            SAPbouiCOM.DBDataSource DBDataSourceLine = ofrm.DataSources.DBDataSources.Item("@FIL_LCM1");
+
+            // 💾 Make sure any edits in UI are pushed to DBDataSource first
+            MATATTAC.FlushToDataSource();
+
+            for (int i = 1; i <= MATATTAC.RowCount; i++)
+            {
+                if (MATATTAC.IsRowSelected(i))
+                {
+                    int rowIndex = i - 1;
+
+                    if (rowIndex >= 0 && rowIndex < DBDataSourceLine.Size)
+                    {
+                        // ✅ Remove record safely from DBDataSource
+                        DBDataSourceLine.RemoveRecord(rowIndex);
+
+                        // 🔁 Reassign LineId to remaining records
+                        for (int j = 0; j < DBDataSourceLine.Size; j++)
+                        {
+                            DBDataSourceLine.Offset = j;
+                            DBDataSourceLine.SetValue("LineId", j, (j + 1).ToString());
+                        }
+
+                        // ♻️ Reload matrix from the updated data
+                        MATATTAC.LoadFromDataSource();
+                        Application.SBO_Application.MessageBox("Selected row deleted.");
+                    }
+                    else
+                    {
+                        Application.SBO_Application.MessageBox("Invalid row index.");
+                    }
+
+                    break; // stop after deleting one selected row
+                }
+            }
+        }
+
+
+
+       
+
+        private SAPbouiCOM.Matrix MATATTAC;
     }
 }

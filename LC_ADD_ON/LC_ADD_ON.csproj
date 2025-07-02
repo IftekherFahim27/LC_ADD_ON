@@ -46,6 +46,7 @@
     <Reference Include="SAPBusinessOneSDK" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\FileDialogHelper.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\GlobalFunction.cs" />
     <Compile Include="Program.cs" />
