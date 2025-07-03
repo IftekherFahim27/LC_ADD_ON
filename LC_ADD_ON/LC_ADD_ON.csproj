@@ -58,6 +58,9 @@
     <Compile Include="Resources\MasterLC.b1f.cs">
       <DependentUpon>MasterLC.b1f</DependentUpon>
     </Compile>
+    <Compile Include="Resources\MLCAMENDMENT.b1f.cs">
+      <DependentUpon>MLCAMENDMENT.b1f</DependentUpon>
+    </Compile>
     <Compile Include="Resources\SalesContract.b1f.cs">
       <DependentUpon>SalesContract.b1f</DependentUpon>
     </Compile>
@@ -70,6 +73,9 @@
       <FormCategory>UserForm</FormCategory>
     </None>
     <None Include="Resources\MasterLC.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Resources\MLCAMENDMENT.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
     <None Include="Resources\SalesContract.b1f">

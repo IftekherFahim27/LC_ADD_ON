@@ -68,6 +68,34 @@ namespace LC_ADD_ON
 
 
                 }
+                else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_LC_AMEND")
+                {
+                    string formUID = "FRMMLCAMENMENT"; // Unique ID for the form
+                                                 // Check if the form is already open
+                    if (IsFormOpen(formUID))
+                    {
+                        Global.G_UI_Application.Forms.Item(formUID).Select();
+                        Global.G_UI_Application.StatusBar.SetText("Form already opened once.",
+                            SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning);
+                        return;
+                    }
+
+                    MLCAMENDMENT activeForm = new MLCAMENDMENT();
+                    activeForm.Show();
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMLCAMENMENT");
+
+                    try
+                    {
+                        InitializeMLCAmmendmentForm(ofrm);
+                    }
+                    catch (Exception e)
+                    {
+                        Application.SBO_Application.MessageBox("Error Found : " + e.Message);
+                    }
+
+
+
+                }
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_B2BLC")
                 {
                     string formUID = "FRMIMPB2BLC"; // Unique ID for the form
@@ -120,6 +148,11 @@ namespace LC_ADD_ON
 
                                 break;
                             }
+                        case "FRMMLCAMENMENT":
+                            {
+                                
+                                break;
+                            }
                         case "FRMIMPB2BLC":
                             {
                                 
@@ -145,7 +178,12 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                                InitializeMasterLCForm(ofrm);
+                                //InitializeMasterLCForm(ofrm);
+                                break;
+                            }
+                        case "FRMMLCAMENMENT":
+                            {
+
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -173,6 +211,11 @@ namespace LC_ADD_ON
                                 InitializeMasterLCForm(ofrm);
                                 break;
                             }
+                        case "FRMMLCAMENMENT":
+                            {
+
+                                break;
+                            }
                         case "FRMIMPB2BLC":
                             {
                                 
@@ -196,6 +239,11 @@ namespace LC_ADD_ON
                         case "FRMMASLC":
                             {
                                 
+                                break;
+                            }
+                        case "FRMMLCAMENMENT":
+                            {
+
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -223,6 +271,11 @@ namespace LC_ADD_ON
                                 
                                 break;
                             }
+                        case "FRMMLCAMENMENT":
+                            {
+
+                                break;
+                            }
                         case "FRMIMPB2BLC":
                             {
                                
@@ -246,6 +299,11 @@ namespace LC_ADD_ON
                         case "FRMMASLC":
                             {
                                
+                                break;
+                            }
+                        case "FRMMLCAMENMENT":
+                            {
+
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -434,6 +492,31 @@ namespace LC_ADD_ON
             {
                 ofrm.Freeze(false);
             }
+        }
+        private void InitializeMLCAmmendmentForm(SAPbouiCOM.Form ofrm)
+        {
+            //try
+            //{
+            //    ofrm.Freeze(true);
+
+            //    // Status
+            //    string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
+            //    if (status == "O")
+            //    {
+            //        ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
+            //    }
+
+            //    // Document number
+            //    int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+            //    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+
+            //    // Document date
+            //    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+            //}
+            //finally
+            //{
+            //    ofrm.Freeze(false);
+            //}
         }
 
         private void InitializeSalesContractForm(SAPbouiCOM.Form ofrm)
