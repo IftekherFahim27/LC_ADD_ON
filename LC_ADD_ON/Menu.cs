@@ -150,7 +150,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-                                
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -183,7 +183,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -213,7 +213,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -243,7 +243,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -273,7 +273,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -303,7 +303,7 @@ namespace LC_ADD_ON
                             }
                         case "FRMMLCAMENMENT":
                             {
-
+                                InitializeMLCAmmendmentForm(ofrm);
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -495,28 +495,40 @@ namespace LC_ADD_ON
         }
         private void InitializeMLCAmmendmentForm(SAPbouiCOM.Form ofrm)
         {
-            //try
-            //{
-            //    ofrm.Freeze(true);
+            try
+            {
+                ofrm.Freeze(true);
 
-            //    // Status
-            //    string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
-            //    if (status == "O")
-            //    {
-            //        ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
-            //    }
+                // Status
 
-            //    // Document number
-            //    int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
-            //    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+                string stat = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTAT").Specific).Value;
+                if (stat == "O")
+                {
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTNAM").Specific).Value = "Open";
+                }
 
-            //    // Document date
-            //    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
-            //}
-            //finally
-            //{
-            //    ofrm.Freeze(false);
-            //}
+
+                // Branch combo
+                string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
+                SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;
+                Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+                
+
+                // Payment terms
+                string sqlQueryptrms = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 24";
+                SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
+
+                // Days terms
+                string sqlQueryptrms2 = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 25";
+                SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+            }
+            finally
+            {
+                ofrm.Freeze(false);
+            }
         }
 
         private void InitializeSalesContractForm(SAPbouiCOM.Form ofrm)

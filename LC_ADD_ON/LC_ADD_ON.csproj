@@ -55,6 +55,9 @@
     <Compile Include="Resources\ImportLCB2B.b1f.cs">
       <DependentUpon>ImportLCB2B.b1f</DependentUpon>
     </Compile>
+    <Compile Include="Resources\LC_Ammendment.b1f.cs">
+      <DependentUpon>LC_Ammendment.b1f</DependentUpon>
+    </Compile>
     <Compile Include="Resources\MasterLC.b1f.cs">
       <DependentUpon>MasterLC.b1f</DependentUpon>
     </Compile>
@@ -70,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ImportLCB2B.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Resources\LC_Ammendment.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
     <None Include="Resources\MasterLC.b1f">

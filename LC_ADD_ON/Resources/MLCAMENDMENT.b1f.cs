@@ -67,7 +67,7 @@ namespace LC_ADD_ON.Resources
             this.CBPTRMS1 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS1").Specific));
             this.CBPTRMS2 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPTRMS2").Specific));
             this.CBIOTRMS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBIOTRMS").Specific));
-            this.ETSTFULL = ((SAPbouiCOM.EditText)(this.GetItem("ETSTFULL").Specific));
+            //    this.ETSTFULL = ((SAPbouiCOM.EditText)(this.GetItem("ETSTFULL").Specific));
             this.ETISUDAT = ((SAPbouiCOM.EditText)(this.GetItem("ETISUDAT").Specific));
             this.STISUDAT = ((SAPbouiCOM.StaticText)(this.GetItem("STISUDAT").Specific));
             this.CBDCTYPE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBDCTYPE").Specific));
@@ -79,17 +79,21 @@ namespace LC_ADD_ON.Resources
             this.FOLAMDHS = ((SAPbouiCOM.Folder)(this.GetItem("FOLAMDHS").Specific));
             this.FOLATTAC = ((SAPbouiCOM.Folder)(this.GetItem("FOLATTAC").Specific));
             this.ADDButton = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
+           // this.ADDButton.PressedBefore += new SAPbouiCOM._IButtonEvents_PressedBeforeEventHandler(this.ADDButton_PressedBefore);
             this.CancelButton = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
             this.STREMRKS = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
             this.ETREMRKS = ((SAPbouiCOM.EditText)(this.GetItem("ETREMRKS").Specific));
             this.MATCUSPO = ((SAPbouiCOM.Matrix)(this.GetItem("MATCUSPO").Specific));
-            this.GRIDADNT = ((SAPbouiCOM.Grid)(this.GetItem("GRIDADNT").Specific));
+            //  this.GRIDADNT = ((SAPbouiCOM.Grid)(this.GetItem("GRIDADNT").Specific));
             this.MATATTAC = ((SAPbouiCOM.Matrix)(this.GetItem("MATATTAC").Specific));
             this.BRWSBTN = ((SAPbouiCOM.Button)(this.GetItem("BRWSBTN").Specific));
             this.DISPBTN = ((SAPbouiCOM.Button)(this.GetItem("DISPBTN").Specific));
             this.DELBTN = ((SAPbouiCOM.Button)(this.GetItem("DELBTN").Specific));
             this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
-            this.ETSTATUS = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
+            //     this.ETSTATUS = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
+            this.ETSTAT = ((SAPbouiCOM.EditText)(this.GetItem("ETSTAT").Specific));
+            this.ETSTNAM = ((SAPbouiCOM.EditText)(this.GetItem("ETSTNAM").Specific));
+            this.MATAMDHS = ((SAPbouiCOM.Matrix)(this.GetItem("MATAMDHS").Specific));
             this.OnCustomInitialize();
 
         }
@@ -160,6 +164,8 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETREMRKS;
         private SAPbouiCOM.EditText ETDOCTRY;
         private SAPbouiCOM.EditText ETSTATUS;
+        private SAPbouiCOM.EditText ETSTAT;
+        private SAPbouiCOM.EditText ETSTNAM;
 
         private SAPbouiCOM.ComboBox CBPTRMS1;
         private SAPbouiCOM.ComboBox CBPTRMS2;
@@ -178,6 +184,7 @@ namespace LC_ADD_ON.Resources
 
         private SAPbouiCOM.Matrix MATCUSPO;
         private SAPbouiCOM.Matrix MATATTAC;
+        private SAPbouiCOM.Matrix MATAMDHS;
 
         private SAPbouiCOM.Button ADDButton;
         private SAPbouiCOM.Button CancelButton;
@@ -302,5 +309,85 @@ namespace LC_ADD_ON.Resources
             }
 
         }
+
+
+
+        private string GetNextLCAmendmentNumber()
+        {
+            try
+            {
+                SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item("FRMMLCAMENMENT");
+                SAPbouiCOM.EditText txtLCNo = (SAPbouiCOM.EditText)oForm.Items.Item("ETLCNO").Specific;
+                string lcNo = txtLCNo.Value.Trim();
+
+                if (string.IsNullOrEmpty(lcNo))
+                {
+                    Application.SBO_Application.StatusBar.SetText("LC Number is required.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                    return "";
+                }
+
+                // Query to get the highest AMD number for that LC
+                string query = $@"
+            SELECT MAX(CAST(SUBSTRING(""U_LCAMDNO"", 5) AS INTEGER)) AS MaxAmendNo
+            FROM ""@FIL_OLCM""
+            WHERE ""U_LCNo"" = '{lcNo}' AND ""U_LCAMDNO"" LIKE 'AMD-%'";
+
+                SAPbobsCOM.Recordset oRS = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+                oRS.DoQuery(query);
+
+                int nextNumber = 0;
+
+                if (!oRS.EoF && oRS.Fields.Item("MaxAmendNo").Value != null && oRS.Fields.Item("MaxAmendNo").Value.ToString() != "")
+                {
+                    nextNumber = Convert.ToInt32(oRS.Fields.Item("MaxAmendNo").Value) + 1;
+                }
+
+                string nextAmendment = "AMD-" + nextNumber.ToString("00");  // AMD-00 for first time
+
+                return nextAmendment;
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.StatusBar.SetText("Error calculating amendment number: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                return "";
+            }
+        }
+
+        //private void ADDButton_PressedBefore(object sboObject, SAPbouiCOM.SBOItemEventArg pVal, out bool BubbleEvent)
+        //{
+        //    BubbleEvent = true;
+        //    try
+        //    {
+        //        SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item("FRMMLCAMENMENT");
+
+        //        if (oForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+        //        {
+
+        //            // Document number
+        //            int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+        //            ((SAPbouiCOM.EditText)oForm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+
+        //            // Document date
+        //            ((SAPbouiCOM.EditText)oForm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+
+        //            string newAmendmentNo = GetNextLCAmendmentNumber();
+
+        //            if (!string.IsNullOrEmpty(newAmendmentNo))
+        //            {
+        //                // Set the new amendment number to the field on the form
+        //                SAPbouiCOM.EditText txtAmendment = (SAPbouiCOM.EditText)oForm.Items.Item("ETAMDNO").Specific;
+        //                txtAmendment.Value = newAmendmentNo;
+        //            }
+
+
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Application.SBO_Application.StatusBar.SetText("Error: " + ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+        //    }
+
+        //}
     }
 }
