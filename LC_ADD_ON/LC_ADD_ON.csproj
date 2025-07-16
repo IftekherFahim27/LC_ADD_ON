@@ -49,6 +49,7 @@
     <Compile Include="Helper\FileDialogHelper.cs" />
     <Compile Include="Helper\Global.cs" />
     <Compile Include="Helper\GlobalFunction.cs" />
+    <Compile Include="Modules\StandardFormHandling.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,9 +69,7 @@
       <DependentUpon>SalesContract.b1f</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\ImportLCB2B.b1f">
       <FormCategory>UserForm</FormCategory>

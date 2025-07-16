@@ -1,6 +1,7 @@
 ﻿using SAPbouiCOM.Framework;
 using System;
 using System.Collections.Generic;
+using LC_ADD_ON.Modules;
 
 namespace LC_ADD_ON
 {
@@ -27,6 +28,10 @@ namespace LC_ADD_ON
                 }
                 Menu MyMenu = new Menu();
                 MyMenu.BasicStart();
+
+                StandardFormHandling objSFH;
+                objSFH = new StandardFormHandling();
+
                 oApp.RegisterMenuEventHandler(MyMenu.SBO_Application_MenuEvent);
                 Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
                 oApp.Run();

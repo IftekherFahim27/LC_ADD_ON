@@ -70,7 +70,7 @@ namespace LC_ADD_ON
                 }
                 else if (pVal.BeforeAction && pVal.MenuUID == "CHLDMN_LC_AMEND")
                 {
-                    string formUID = "FRMMLCAMENMENT"; // Unique ID for the form
+                    string formUID = "FRMLCAMN"; // Unique ID for the form
                                                  // Check if the form is already open
                     if (IsFormOpen(formUID))
                     {
@@ -80,9 +80,9 @@ namespace LC_ADD_ON
                         return;
                     }
 
-                    MLCAMENDMENT activeForm = new MLCAMENDMENT();
+                    LC_Ammendment activeForm = new LC_Ammendment();
                     activeForm.Show();
-                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMMLCAMENMENT");
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item("FRMLCAMN");
 
                     try
                     {
@@ -523,6 +523,17 @@ namespace LC_ADD_ON
                 string sqlQueryptrms2 = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 25";
                 SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;
                 Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+
+                if (ofrm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE )
+                {
+                    // Document number
+                    int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific).Value = num.ToString();
+
+                    // Document date
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+                }
 
             }
             finally
