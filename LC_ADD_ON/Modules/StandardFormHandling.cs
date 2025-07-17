@@ -59,16 +59,28 @@ namespace LC_ADD_ON.Modules
                                 selectedValue = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("U_LCNo").Cells.Item(rowSelected).Specific).Value;
                             }
                         }
-
                         string sqlQuery = $@"
-                SELECT 
-                    ""LogInst"", ""CreateDate"", ""U_CardCode"", ""U_LCNo"", ""U_SCNo"",
-                    ""U_Desc"", ""U_DocDate"", ""U_IssueDate"", ""U_ShipDate"", ""U_ExpDate"",
-                    ""U_Amt"", ""U_Curr"", ""U_IssueBank"", ""U_NegBank"", ""U_PTerm1"",
-                    ""U_PTerm2"", ""U_INCOTRMS""
-                FROM ""@FIL_OLCM""
-                WHERE ""U_LCNo"" = '{selectedValue}'";
-
+    SELECT 
+        ""LogInst"",
+        ""CreateDate"",
+        ""U_CardCode"" AS ""CardCode"",
+        ""U_LCNo"" AS ""LCNo"",
+        ""U_SCNo"" AS ""SCNo"",
+        ""U_Desc"" AS ""Desc"",
+        ""U_DocDate"" AS ""DocDate"",
+        ""U_IssueDate"" AS ""IssueDate"",
+        ""U_ShipDate"" AS ""ShipDate"",
+        ""U_ExpDate"" AS ""ExpDate"",
+        ""U_Amt"" AS ""Amount"",
+        ""U_Curr"" AS ""Currency"",
+        ""U_IssueBank"" AS ""IssuBank"",
+        ""U_NegBank"" AS ""NegoBank"",
+        ""U_PTerm1"" AS ""Payment"",
+        ""U_PTerm2"" AS ""Days"",
+        ""U_INCOTRMS"" AS ""Inco Terms""
+    FROM ""@FIL_OLCM""
+    WHERE ""U_LCNo"" = '{selectedValue}';
+";
                         // Execute Query and Load into DataTable
                         SAPbouiCOM.DataTable dt = ofrm.DataSources.DataTables.Item("DTAMDMENT");
                         dt.ExecuteQuery(sqlQuery);
