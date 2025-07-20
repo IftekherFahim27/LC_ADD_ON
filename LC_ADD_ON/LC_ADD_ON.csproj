@@ -53,6 +53,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\B2BLC.b1f.cs">
+      <DependentUpon>B2BLC.b1f</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ImportLCB2B.b1f.cs">
       <DependentUpon>ImportLCB2B.b1f</DependentUpon>
     </Compile>
@@ -71,6 +74,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\B2BLC.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
     <None Include="Resources\ImportLCB2B.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
