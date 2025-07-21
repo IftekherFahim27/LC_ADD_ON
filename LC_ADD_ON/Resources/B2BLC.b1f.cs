@@ -97,6 +97,8 @@ namespace LC_ADD_ON.Resources
             this.Matrix0 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_83").Specific));
             this.Matrix1 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_84").Specific));
             this.Matrix2 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_85").Specific));
+            this.Grid0 = ((SAPbouiCOM.Grid)(this.GetItem("Item_25").Specific));
+            this.Matrix3 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_37").Specific));
             this.OnCustomInitialize();
 
         }
@@ -193,5 +195,7 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.Matrix Matrix0;
         private SAPbouiCOM.Matrix Matrix1;
         private SAPbouiCOM.Matrix Matrix2;
+        private SAPbouiCOM.Grid Grid0;
+        private SAPbouiCOM.Matrix Matrix3;
     }
 }

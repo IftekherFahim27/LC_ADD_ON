@@ -101,6 +101,8 @@ namespace LC_ADD_ON.Resources
             this.DELBTN = ((SAPbouiCOM.Button)(this.GetItem("DELBTN").Specific));
             this.DELBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.DELBTN_ClickAfter);
             this.GDAMDHIS = ((SAPbouiCOM.Grid)(this.GetItem("GDAMDHIS").Specific));
+            this.STMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMODE").Specific));
+            this.CBMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMODE").Specific));
             this.OnCustomInitialize();
 
         }
@@ -110,6 +112,8 @@ namespace LC_ADD_ON.Resources
         /// </summary>
         public override void OnInitializeFormEvents()
         {
+            this.RightClickBefore += new RightClickBeforeHandler(this.Form_RightClickBefore);
+
         }
 
 
@@ -186,6 +190,8 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETDOCTRY;
         private SAPbouiCOM.EditText ETSTAT;
 
+        private SAPbouiCOM.StaticText STMODE;
+        private SAPbouiCOM.ComboBox CBMODE;
 
         private SAPbouiCOM.ComboBox CBCMPANY;
         private SAPbouiCOM.ComboBox CBPTRMS1;
@@ -517,7 +523,8 @@ namespace LC_ADD_ON.Resources
             string IssueDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_IssueDate", 0);
             string ShipmentDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_ShipDate", 0);
             string ExpiryDate = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_ExpDate", 0);
-
+            string LCmode = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("U_MLCTTS", 0);
+            string dnum = pForm.DataSources.DBDataSources.Item("@FIL_OLCM").GetValue("DocNum", 0);
 
             if (CompanyCode == "")
             {
@@ -535,6 +542,12 @@ namespace LC_ADD_ON.Resources
             {
                 Global.GFunc.ShowError("Enter LC Number");
                 pForm.ActiveItem = "ETLCNO";
+                return BubbleEvent = false;
+            }
+            else if (LCmode == "")
+            {
+                Global.GFunc.ShowError("Select LC Mode");
+                pForm.ActiveItem = "CBLCMODE";
                 return BubbleEvent = false;
             }
             else if (IssuingBAnk == "")
@@ -606,6 +619,39 @@ namespace LC_ADD_ON.Resources
                 }
             }
 
+
+            if (pForm.Mode == SAPbouiCOM.BoFormMode.fm_UPDATE_MODE)
+            {
+                string mode = "";
+
+                // Create Recordset object
+                SAPbobsCOM.Recordset oRec = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                // Assuming dnum is already declared and holds your DocNum (as int or string)
+                string sqlQuery = $"SELECT \"U_MLCTTS\" FROM \"@FIL_OLCM\" WHERE \"DocNum\" = {dnum}";
+
+                oRec.DoQuery(sqlQuery);
+
+                if (!oRec.EoF)
+                {
+                    mode = oRec.Fields.Item("U_MLCTTS").Value.ToString();
+                }
+
+                if (mode == "D")
+                {
+                    Application.SBO_Application.MessageBox("LC is in Draft Mode, No Ammendment Possible");
+                    BubbleEvent = false;
+                    return BubbleEvent;
+                }
+            }
+
+            if (pForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+            {
+
+                //Document number
+                int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+                ((SAPbouiCOM.EditText)pForm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+            }
 
 
 
@@ -942,5 +988,27 @@ namespace LC_ADD_ON.Resources
            
         }
 
+        private void Form_RightClickBefore(ref SAPbouiCOM.ContextMenuInfo eventInfo, out bool BubbleEvent)
+        {
+            BubbleEvent = true;
+
+            SAPbouiCOM.Form ofrom = (SAPbouiCOM.Form)Application.SBO_Application.Forms.Item(eventInfo.FormUID);
+            //ofrom.EnableMenu("1286", false);
+
+           
+            if (ofrom.Mode == SAPbouiCOM.BoFormMode.fm_OK_MODE)
+            {
+                ofrom.EnableMenu("1287", true);
+            }
+            else
+            {
+                ofrom.EnableMenu("1287", false);
+            }
+
+            
+
+        }
+
+       
     }
 }

@@ -148,7 +148,7 @@ namespace LC_ADD_ON
 
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -181,7 +181,7 @@ namespace LC_ADD_ON
                                 //InitializeMasterLCForm(ofrm);
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -211,7 +211,7 @@ namespace LC_ADD_ON
                                 InitializeMasterLCForm(ofrm);
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -241,7 +241,7 @@ namespace LC_ADD_ON
                                 
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -271,7 +271,7 @@ namespace LC_ADD_ON
                                 
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -301,7 +301,7 @@ namespace LC_ADD_ON
                                
                                 break;
                             }
-                        case "FRMMLCAMENMENT":
+                        case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
                                 break;
@@ -315,6 +315,36 @@ namespace LC_ADD_ON
                         case "FRMSLCON":
                             {
 
+                                break;
+                            }
+
+                    }
+                }
+                else if (!pVal.BeforeAction && pVal.MenuUID == "1287")
+                {
+                    SAPbouiCOM.Form ofrm = (SAPbouiCOM.Form)Application.SBO_Application.Forms.ActiveForm;
+                    string formtype = ofrm.UniqueID.ToString();
+                    switch (formtype)
+                    {
+                        case "FRMMASLC":
+                            {
+                                InitializeMasterLCForm(ofrm);
+                                break;
+                            }
+                        case "FRMLCAMN":
+                            {
+                                InitializeMLCAmmendmentForm(ofrm);
+                                
+                                break;
+                            }
+                        case "FRMIMPB2BLC":
+                            {
+
+                                break;
+                            }
+                        case "FRMSLCON":
+                            {
+                                InitializeSalesContractForm(ofrm);
                                 break;
                             }
 
