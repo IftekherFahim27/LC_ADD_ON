@@ -101,8 +101,10 @@ namespace LC_ADD_ON.Resources
             this.DELBTN = ((SAPbouiCOM.Button)(this.GetItem("DELBTN").Specific));
             this.DELBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.DELBTN_ClickAfter);
             this.GDAMDHIS = ((SAPbouiCOM.Grid)(this.GetItem("GDAMDHIS").Specific));
-            this.STMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMODE").Specific));
-            this.CBMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMODE").Specific));
+            this.STMMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMMODE").Specific));
+            this.CBMMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMMODE").Specific));
+            this.STCMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STCMODE").Specific));
+            this.CBCMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMODE").Specific));
             this.OnCustomInitialize();
 
         }
@@ -190,8 +192,10 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETDOCTRY;
         private SAPbouiCOM.EditText ETSTAT;
 
-        private SAPbouiCOM.StaticText STMODE;
-        private SAPbouiCOM.ComboBox CBMODE;
+        private SAPbouiCOM.StaticText STMMODE;
+        private SAPbouiCOM.ComboBox CBMMODE;
+        private SAPbouiCOM.StaticText STCMODE;
+        private SAPbouiCOM.ComboBox CBCMODE;
 
         private SAPbouiCOM.ComboBox CBCMPANY;
         private SAPbouiCOM.ComboBox CBPTRMS1;

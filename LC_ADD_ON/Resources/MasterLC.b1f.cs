@@ -102,8 +102,11 @@ namespace LC_ADD_ON.Resources
             this.DELBTN = ((SAPbouiCOM.Button)(this.GetItem("DELBTN").Specific));
             this.DELBTN.ClickAfter += new SAPbouiCOM._IButtonEvents_ClickAfterEventHandler(this.DELBTN_ClickAfter);
             this.MATATTAC = ((SAPbouiCOM.Matrix)(this.GetItem("MATATTAC").Specific));
-            this.STMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMODE").Specific));
-            this.CBLCMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBLCMODE").Specific));
+            this.STMMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMMODE").Specific));
+            this.CBMMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMMODE").Specific));
+            this.CBMMODE.ComboSelectAfter += new SAPbouiCOM._IComboBoxEvents_ComboSelectAfterEventHandler(this.CBMMODE_ComboSelectAfter);
+            this.STCMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STCMODE").Specific));
+            this.CBCMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMODE").Specific));
             this.OnCustomInitialize();
 
         }
@@ -145,10 +148,12 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.StaticText STPTRMS1;
         private SAPbouiCOM.StaticText STPTRMS2;
         private SAPbouiCOM.StaticText STIOTRMS;
-        private SAPbouiCOM.StaticText STMODE;
-
+        private SAPbouiCOM.StaticText STMMODE;
+        private SAPbouiCOM.StaticText STCMODE;
+        
+        private SAPbouiCOM.ComboBox CBMMODE;
         private SAPbouiCOM.ComboBox CBCMPANY;
-        private SAPbouiCOM.ComboBox CBLCMODE;
+        private SAPbouiCOM.ComboBox CBCMODE;
 
         private SAPbouiCOM.EditText ETCUSTMR;
         private SAPbouiCOM.EditText ETSTATUS;
@@ -439,18 +444,18 @@ namespace LC_ADD_ON.Resources
                 SAPbobsCOM.Recordset oRec = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                 // Assuming dnum is already declared and holds your DocNum (as int or string)
-                string sqlQuery = $"SELECT \"U_MLCTTS\" FROM \"@FIL_OLCM\" WHERE \"DocNum\" = {dnum}";
+                string sqlQuery = $"SELECT \"U_CLCTTS\" FROM \"@FIL_OLCM\" WHERE \"DocNum\" = {dnum}";
 
                 oRec.DoQuery(sqlQuery);
 
                 if (!oRec.EoF)
                 {
-                    mode = oRec.Fields.Item("U_MLCTTS").Value.ToString();
+                    mode = oRec.Fields.Item("U_CLCTTS").Value.ToString();
                 }
 
                 if (mode == "C")
                 {
-                    Application.SBO_Application.MessageBox("LC is in Confirmed Mode");
+                    Application.SBO_Application.MessageBox("Update not Possible LC is in Confirmed Mode");
                     BubbleEvent = false;
                     return BubbleEvent;
                 }
@@ -906,11 +911,29 @@ namespace LC_ADD_ON.Resources
             }
         }
 
+        private void CBMMODE_ComboSelectAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMMASLC");
 
+            // Merchandise Combo
+            SAPbouiCOM.ComboBox oComboMerchant = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBMMODE").Specific;
+            string selectedValue = oComboMerchant.Value;
 
-       
+            if (selectedValue == "C")
+            {
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = true;
+            }
+            else
+            {
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = false;
 
-       
-       
+                SAPbouiCOM.ComboBox oComboCommercial = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMODE").Specific;
+                oComboCommercial.Select("D", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+            }
+
+        }
     }
 }

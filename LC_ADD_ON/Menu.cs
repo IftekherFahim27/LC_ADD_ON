@@ -179,6 +179,10 @@ namespace LC_ADD_ON
                         case "FRMMASLC":
                             {
                                 //InitializeMasterLCForm(ofrm);
+
+                                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                                oItem.Enabled = true;
+
                                 break;
                             }
                         case "FRMLCAMN":
@@ -208,7 +212,7 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                                InitializeMasterLCForm(ofrm);
+                                LoadPrevMasterLCForm(ofrm);
                                 break;
                             }
                         case "FRMLCAMN":
@@ -238,7 +242,7 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                                
+                                LoadPrevMasterLCForm(ofrm);
                                 break;
                             }
                         case "FRMLCAMN":
@@ -268,7 +272,7 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                                
+                                LoadPrevMasterLCForm(ofrm);
                                 break;
                             }
                         case "FRMLCAMN":
@@ -298,7 +302,7 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                               
+                                LoadPrevMasterLCForm(ofrm);
                                 break;
                             }
                         case "FRMLCAMN":
@@ -495,6 +499,14 @@ namespace LC_ADD_ON
                     ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
                 }
 
+               
+                //Commercial Status
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = false;
+                
+                SAPbouiCOM.ComboBox oCombo = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMODE").Specific;
+                oCombo.Select("D", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
                 // Branch combo
                 string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
                 SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;
@@ -517,6 +529,67 @@ namespace LC_ADD_ON
 
                 // Document date
                 ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+
+                
+
+            }
+            finally
+            {
+                ofrm.Freeze(false);
+            }
+        }
+
+        private void LoadPrevMasterLCForm(SAPbouiCOM.Form ofrm)
+        {
+            try
+            {
+                ofrm.Freeze(true);
+
+                // Status
+                string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
+                if (status == "O")
+                {
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
+                }
+
+                // Merchandise Combo //Commercial Status
+                SAPbouiCOM.ComboBox oComboMerchant = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBMMODE").Specific;
+                string selectedValue = oComboMerchant.Value;
+
+                if (selectedValue == "D") 
+                { 
+                    
+                    SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                    oItem.Enabled = false;
+                }
+                else if(selectedValue =="C")
+                {
+                    SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                    oItem.Enabled = true;
+                }
+
+                
+
+                // Branch combo
+                string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
+                SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;
+                Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+                
+
+                // Payment terms
+                string sqlQueryptrms = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 24";
+                SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
+
+                // Days terms
+                string sqlQueryptrms2 = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 25";
+                SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+                
+
+
+
             }
             finally
             {
@@ -537,6 +610,9 @@ namespace LC_ADD_ON
                     ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTNAM").Specific).Value = "Open";
                 }
 
+                // Merchandise Combo
+               
+                
 
                 // Branch combo
                 string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
