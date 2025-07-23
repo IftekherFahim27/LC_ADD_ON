@@ -188,6 +188,8 @@ namespace LC_ADD_ON
                         case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
+
+
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -332,13 +334,46 @@ namespace LC_ADD_ON
                     {
                         case "FRMMASLC":
                             {
-                                InitializeMasterLCForm(ofrm);
+                                //InitializeMasterLCForm(ofrm);
                                 break;
                             }
                         case "FRMLCAMN":
                             {
                                 InitializeMLCAmmendmentForm(ofrm);
+                               
+                                // Get the DocEntry from EditText (string to int)
+                                int docentry = int.Parse(((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCTRY").Specific).Value);
+
+                                // Initialize DI API recordset
+                                SAPbobsCOM.Recordset oRec = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                                // SQL Query to fetch U_LCAMDNO
+                                string query = $@"SELECT ""U_LCAMDNO"" FROM ""@FIL_OLCM"" WHERE ""DocEntry"" = {docentry}";
+
+                                // Execute the query
+                                oRec.DoQuery(query);
+
+                                // Variable to hold numeric part of U_LCAMDNO
+                                int nextNumber = 1;
+
+                                if (!oRec.EoF && !string.IsNullOrEmpty(oRec.Fields.Item("U_LCAMDNO").Value.ToString()))
+                                {
+                                    // Parse the existing U_LCAMDNO value (e.g., "1", "2")
+                                    int currentVal;
+                                    if (int.TryParse(oRec.Fields.Item("U_LCAMDNO").Value.ToString(), out currentVal))
+                                    {
+                                        nextNumber = currentVal + 1;
+                                    }
+                                }
+
+                                // Set incremented value in ETLCNO EditText
+                                ((SAPbouiCOM.EditText)ofrm.Items.Item("ETADNTNO").Specific).Value = nextNumber.ToString();
+
                                 
+                                SAPbouiCOM.DBDataSource DBDataSourceLine = ofrm.DataSources.DBDataSources.Item("@FIL_LCM2");
+                                SAPbouiCOM.Matrix MATCUSPO = (SAPbouiCOM.Matrix)ofrm.Items.Item("MATCUSPO").Specific;
+                                Global.GFunc.SetNewLine(MATCUSPO, DBDataSourceLine, 1, "");
+
                                 break;
                             }
                         case "FRMIMPB2BLC":
@@ -499,7 +534,10 @@ namespace LC_ADD_ON
                     ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
                 }
 
-               
+                //Default amendment no
+                SAPbouiCOM.EditText ETADNTNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETADNTNO").Specific;
+                ETADNTNO.Value = "0";
+
                 //Commercial Status
                 SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
                 oItem.Enabled = false;
@@ -633,6 +671,9 @@ namespace LC_ADD_ON
 
                 if (ofrm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE )
                 {
+                    SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                    oItem.Enabled = false;
+
                     // Document number
                     int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
                     ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific).Value = num.ToString();

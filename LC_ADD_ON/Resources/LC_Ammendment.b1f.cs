@@ -103,6 +103,7 @@ namespace LC_ADD_ON.Resources
             this.GDAMDHIS = ((SAPbouiCOM.Grid)(this.GetItem("GDAMDHIS").Specific));
             this.STMMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMMODE").Specific));
             this.CBMMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBMMODE").Specific));
+            this.CBMMODE.ComboSelectAfter += new SAPbouiCOM._IComboBoxEvents_ComboSelectAfterEventHandler(this.CBMMODE_ComboSelectAfter);
             this.STCMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STCMODE").Specific));
             this.CBCMODE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMODE").Specific));
             this.OnCustomInitialize();
@@ -262,6 +263,13 @@ namespace LC_ADD_ON.Resources
                             totalvalue += qty;
                         }
 
+                    }
+
+                    int amdno = int.Parse(((SAPbouiCOM.EditText)ofrm.Items.Item("ETADNTNO").Specific).Value);
+                    if (amdno != 0)
+                    {
+                        double amt = double.Parse(((SAPbouiCOM.EditText)ofrm.Items.Item("ETRSCAMT").Specific).Value);
+                        remain = amt;
                     }
 
                     if (totalvalue > remain)
@@ -632,18 +640,18 @@ namespace LC_ADD_ON.Resources
                 SAPbobsCOM.Recordset oRec = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                 // Assuming dnum is already declared and holds your DocNum (as int or string)
-                string sqlQuery = $"SELECT \"U_MLCTTS\" FROM \"@FIL_OLCM\" WHERE \"DocNum\" = {dnum}";
+                string sqlQuery = $"SELECT \"U_CLCTTS\" FROM \"@FIL_OLCM\" WHERE \"DocNum\" = {dnum}";
 
                 oRec.DoQuery(sqlQuery);
 
                 if (!oRec.EoF)
                 {
-                    mode = oRec.Fields.Item("U_MLCTTS").Value.ToString();
+                    mode = oRec.Fields.Item("U_CLCTTS").Value.ToString();
                 }
 
-                if (mode == "D")
+                if (mode == "C")
                 {
-                    Application.SBO_Application.MessageBox("LC is in Draft Mode, No Ammendment Possible");
+                    Application.SBO_Application.MessageBox("Update not Possible ,Amendment this LC ");
                     BubbleEvent = false;
                     return BubbleEvent;
                 }
@@ -651,10 +659,9 @@ namespace LC_ADD_ON.Resources
 
             if (pForm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
             {
-
-                //Document number
-                int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
-                ((SAPbouiCOM.EditText)pForm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+              //Document number
+              int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+              ((SAPbouiCOM.EditText)pForm.Items.Item("ETDOCNO").Specific).Value = num.ToString();
             }
 
 
@@ -947,27 +954,28 @@ namespace LC_ADD_ON.Resources
                     }
 
                     string sqlQuery = $@"
-    SELECT 
-        ""LogInst"",
-        ""CreateDate"",
-        ""U_CardCode"" AS ""CardCode"",
-        ""U_LCNo"" AS ""LCNo"",
-        ""U_SCNo"" AS ""SCNo"",
-        ""U_Desc"" AS ""Desc"",
-        ""U_DocDate"" AS ""DocDate"",
-        ""U_IssueDate"" AS ""IssueDate"",
-        ""U_ShipDate"" AS ""ShipDate"",
-        ""U_ExpDate"" AS ""ExpDate"",
-        ""U_Amt"" AS ""Amount"",
-        ""U_Curr"" AS ""Currency"",
-        ""U_IssueBank"" AS ""IssuBank"",
-        ""U_NegBank"" AS ""NegoBank"",
-        ""U_PTerm1"" AS ""Payment"",
-        ""U_PTerm2"" AS ""Days"",
-        ""U_INCOTRMS"" AS ""Inco Terms""
-    FROM ""@FIL_OLCM""
-    WHERE ""U_LCNo"" = '{lcNoValue}';
-";
+SELECT 
+    ROW_NUMBER() OVER (ORDER BY ""U_LCAMDNO"" DESC) AS ""#"",  -- serial number
+    ""U_LCAMDNO"",
+    ""CreateDate"",
+    ""U_CardCode"" AS ""CardCode"",
+    ""U_LCNo"" AS ""LCNo"",
+    ""U_SCNo"" AS ""SCNo"",
+    ""U_Desc"" AS ""Desc"",
+    ""U_DocDate"" AS ""DocDate"",
+    ""U_IssueDate"" AS ""IssueDate"",
+    ""U_ShipDate"" AS ""ShipDate"",
+    ""U_ExpDate"" AS ""ExpDate"",
+    ""U_Amt"" AS ""Amount"",
+    ""U_Curr"" AS ""Currency"",
+    ""U_IssueBank"" AS ""IssuBank"",
+    ""U_NegBank"" AS ""NegoBank"",
+    ""U_PTerm1"" AS ""Payment"",
+    ""U_PTerm2"" AS ""Days"",
+    ""U_INCOTRMS"" AS ""Inco Terms""
+FROM ""@FIL_OLCM""
+WHERE ""U_LCNo"" = '{lcNoValue}'
+ORDER BY ""U_LCAMDNO"" DESC";
 
 
                     // Execute Query and Load into DataTable
@@ -1013,6 +1021,29 @@ namespace LC_ADD_ON.Resources
 
         }
 
-       
+        private void CBMMODE_ComboSelectAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form ofrm = Application.SBO_Application.Forms.Item("FRMLCAMN");
+
+            // Merchandise Combo
+            SAPbouiCOM.ComboBox oComboMerchant = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBMMODE").Specific;
+            string selectedValue = oComboMerchant.Value;
+
+            if (selectedValue == "C")
+            {
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = true;
+            }
+            else
+            {
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = false;
+
+                SAPbouiCOM.ComboBox oComboCommercial = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMODE").Specific;
+                oComboCommercial.Select("D", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+            }
+
+        }
     }
 }

@@ -87,6 +87,7 @@ namespace LC_ADD_ON.Resources
             this.CBDCTYPE = ((SAPbouiCOM.ComboBox)(this.GetItem("CBDCTYPE").Specific));
             this.CBDCTYPE.ComboSelectAfter += new SAPbouiCOM._IComboBoxEvents_ComboSelectAfterEventHandler(this.CBDCTYPE_ComboSelectAfter);
             this.ADDButton = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
+            this.ADDButton.PressedAfter += new SAPbouiCOM._IButtonEvents_PressedAfterEventHandler(this.ADDButton_PressedAfter);
             this.ADDButton.PressedBefore += new SAPbouiCOM._IButtonEvents_PressedBeforeEventHandler(this.ADDButton_PressedBefore);
             this.CancelButton = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
             this.STREMRKS = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
@@ -935,5 +936,72 @@ namespace LC_ADD_ON.Resources
             }
 
         }
+
+        private void ADDButton_PressedAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form oform = Application.SBO_Application.Forms.Item(pVal.FormUID);
+            if (oform.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE )
+            {
+                InitializeMasterLCForm(oform);
+            }
+
+        }
+
+        private void InitializeMasterLCForm(SAPbouiCOM.Form ofrm)
+        {
+            try
+            {
+                ofrm.Freeze(true);
+
+                // Status
+                string status = ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTATUS").Specific).Value;
+                if (status == "O")
+                {
+                    ((SAPbouiCOM.EditText)ofrm.Items.Item("ETSTFULL").Specific).Value = "Open";
+                }
+
+                //Default amendment no
+                SAPbouiCOM.EditText ETADNTNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETADNTNO").Specific;
+                ETADNTNO.Value = "0";
+
+                //Commercial Status
+                SAPbouiCOM.Item oItem = ofrm.Items.Item("CBCMODE");
+                oItem.Enabled = false;
+
+                SAPbouiCOM.ComboBox oCombo = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMODE").Specific;
+                oCombo.Select("D", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+                // Branch combo
+                string sqlQuerybpl = @"SELECT ""BPLId"", ""BPLName"" FROM ""OBPL""";
+                SAPbouiCOM.ComboBox CBCMPANY = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPANY").Specific;
+                Global.GFunc.setComboBoxValue(CBCMPANY, sqlQuerybpl);
+                CBCMPANY.Select("1", SAPbouiCOM.BoSearchKey.psk_ByValue);
+
+                // Payment terms
+                string sqlQueryptrms = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 24";
+                SAPbouiCOM.ComboBox CBPTRMS1 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS1").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS1, sqlQueryptrms);
+
+                // Days terms
+                string sqlQueryptrms2 = @"SELECT ""FldValue"", ""Descr"" FROM ""UFD1"" WHERE ""TableID"" = '@FIL_OLCB' AND ""FieldID"" = 25";
+                SAPbouiCOM.ComboBox CBPTRMS2 = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBPTRMS2").Specific;
+                Global.GFunc.setComboBoxValue(CBPTRMS2, sqlQueryptrms2);
+
+                // Document number
+                int num = Global.GFunc.GetCodeGeneration("@FIL_OLCM");
+                ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNUM").Specific).Value = num.ToString();
+
+                // Document date
+                ((SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific).Value = DateTime.Now.ToString("yyyyMMdd");
+
+
+
+            }
+            finally
+            {
+                ofrm.Freeze(false);
+            }
+        }
+
     }
 }
