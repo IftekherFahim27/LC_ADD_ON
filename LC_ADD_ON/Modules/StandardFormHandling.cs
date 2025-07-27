@@ -33,7 +33,7 @@ namespace LC_ADD_ON.Modules
                     }
                     catch
                     {
-                        Application.SBO_Application.StatusBar.SetText("FRMLCAMN form is not open.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                        
                         return;
                     }
 
@@ -47,9 +47,9 @@ namespace LC_ADD_ON.Modules
 
 
                         // Get selected value from CBSERISE
-                        string selectedValue = "";
+                        string LCno = "";
                         string amdno = "";
-                        if (string.IsNullOrEmpty(selectedValue))
+                        if (string.IsNullOrEmpty(LCno))
                         {
                             // ── Get value from Form 9999 Matrix ──
                             SAPbouiCOM.Form frm9999 = Application.SBO_Application.Forms.Item(pVal.FormUID);
@@ -60,7 +60,7 @@ namespace LC_ADD_ON.Modules
 
                             if (rowSelected > 0)
                             {
-                                selectedValue = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("U_LCNo").Cells.Item(rowSelected).Specific).Value;
+                                LCno = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("U_LCNo").Cells.Item(rowSelected).Specific).Value;
                                 amdno = ((SAPbouiCOM.EditText)oMatrix.Columns.Item("U_LCAMDNO").Cells.Item(rowSelected).Specific).Value;
                             }
                         }
@@ -71,7 +71,7 @@ namespace LC_ADD_ON.Modules
                         SAPbobsCOM.Recordset oRec = (SAPbobsCOM.Recordset)Global.oComp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
 
                         // Build SQL
-                        string sql = $@"SELECT MAX(""U_LCAMDNO"") AS ""MAX_AMDNO"" FROM ""@FIL_OLCM"" WHERE ""U_LCNo"" = '{selectedValue}'";
+                        string sql = $@"SELECT MAX(""U_LCAMDNO"") AS ""MAX_AMDNO"" FROM ""@FIL_OLCM"" WHERE ""U_LCNo"" = '{LCno}'";
 
                         // Execute Query
                         oRec.DoQuery(sql);
@@ -82,8 +82,18 @@ namespace LC_ADD_ON.Modules
                             int.TryParse(oRec.Fields.Item("MAX_AMDNO").Value.ToString(), out maxAmdNo);
                         }
 
+                        int amendmentno;
+
+                        if (amdno =="")
+                        {
+                            amendmentno = 0;
+                        }
+                        else
+                        {
+                            amendmentno = int.Parse(amdno);
+                        }
                         // Now maxAmdNo holds the max U_LCAMDNO as integer
-                        int amendmentno = int.Parse(amdno);
+                       
                         if (amendmentno == maxAmdNo ) 
                         { 
 
@@ -93,7 +103,7 @@ namespace LC_ADD_ON.Modules
                              ""U_SCNo"" AS ""SCNo"",""U_Desc"" AS ""Desc"",""U_DocDate"" AS ""DocDate"",""U_IssueDate"" AS ""IssueDate"",
                              ""U_ShipDate"" AS ""ShipDate"",""U_ExpDate"" AS ""ExpDate"",""U_Amt"" AS ""Amount"",""U_Curr"" AS ""Currency"",
                              ""U_IssueBank"" AS ""IssuBank"",""U_NegBank"" AS ""NegoBank"",""U_PTerm1"" AS ""Payment"",""U_PTerm2"" AS ""Days"",
-                             ""U_INCOTRMS"" AS ""Inco Terms"" FROM ""@FIL_OLCM"" WHERE ""U_LCNo"" = '{selectedValue}' ORDER BY ""U_LCAMDNO"" DESC";
+                             ""U_INCOTRMS"" AS ""Inco Terms"" FROM ""@FIL_OLCM"" WHERE ""U_LCNo"" = '{LCno}' ORDER BY ""U_LCAMDNO"" DESC";
 
 
                         // Execute Query and Load into DataTable
@@ -109,9 +119,20 @@ namespace LC_ADD_ON.Modules
                         }
                         else
                         {
-                            Application.SBO_Application.StatusBar.SetText("Can not access Older Version.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                            Application.SBO_Application.StatusBar.SetText("Cannot access Older Version.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+
+                            // Optional delay to let user see the message (not mandatory)
+                            System.Threading.Thread.Sleep(500); // half a second
+
+                            // Close the form
+                            Application.SBO_Application.Forms.Item(ofrm.UniqueID).Close();
+                            ofrm.Freeze(false);
+
+                            BubbleEvent = false;
                             return;
+
                         }
+
 
                         ofrm.Freeze(false);
                     }

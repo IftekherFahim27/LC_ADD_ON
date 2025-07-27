@@ -695,9 +695,54 @@ namespace LC_ADD_ON.Resources
                         return;
                     }
 
+                    //remaining Value calculation
+
+                    double remAmt = 0.0;
+                    double dEremAmt =0.0;
+
+                    SAPbouiCOM.EditText eremamt = (SAPbouiCOM.EditText)oform.Items.Item("ETRSCAMT").Specific;
+                    double.TryParse(eremamt.Value, out dEremAmt);
+
+                    remAmt =dEremAmt-totalvalue;
+
+                    if (remAmt < 0)
+                    {
+                        Application.SBO_Application.StatusBar.SetText("Remaining Amount Out of Range", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error);
+                        // Optionally reset the current row’s values
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSENTY").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLSORDR").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLCPONO").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLQTY").Cells.Item(pVal.Row).Specific).Value = "";
+                        ((SAPbouiCOM.EditText)oMatrix.Columns.Item("COLVALUE").Cells.Item(pVal.Row).Specific).Value = "";
+                        return;
+                    }
 
                     ((SAPbouiCOM.EditText)oform.Items.Item("ETVALUE").Specific).Value = totalvalue.ToString("0.00");
-                  
+                    ((SAPbouiCOM.EditText)oform.Items.Item("ETRSCAMT").Specific).Value = remAmt.ToString("0.00");
+
+
+                    //consumable value update
+                    double b2blcp = 0.0;
+                    SAPbouiCOM.EditText ETB2BLCP = (SAPbouiCOM.EditText)oform.Items.Item("ETB2BLCP").Specific;
+                    if (ETB2BLCP.Value == "")
+                    {
+                        b2blcp = 0.0;
+                    }
+                    else
+                    {
+                        double.TryParse(ETB2BLCP.Value, out b2blcp);
+                    }
+
+                    //if b2blc percentage exists
+                    if (b2blcp != 0)
+                    {
+                        double val = 0.0;
+                        SAPbouiCOM.EditText ETVALUE = (SAPbouiCOM.EditText)oform.Items.Item("ETVALUE").Specific;
+                        double.TryParse(ETVALUE.Value, out val);
+
+                        double newconval = totalvalue - (val * b2blcp / 100);
+                        ((SAPbouiCOM.EditText)oform.Items.Item("ETCONVAL").Specific).Value = newconval.ToString("0.00");
+                    }
 
 
                     int lastRow = MATCUSPO.RowCount;

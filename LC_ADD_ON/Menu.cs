@@ -700,11 +700,14 @@ namespace LC_ADD_ON
                 SAPbouiCOM.ComboBox CBCMPCOD = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBCMPCOD").Specific;   //object defining- Define a combo box
                 Global.GFunc.setComboBoxValue(CBCMPCOD, sqlQuerybpl);
 
-                string db = "@FIL_OSCM";
-                int num = Global.GFunc.GetCodeGeneration(db);
-                String docnum = num.ToString();
-                SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
-                ETDOCNO.Value = docnum;
+                if (ofrm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
+                {
+                    string db = "@FIL_OSCM";
+                    int num = Global.GFunc.GetCodeGeneration(db);
+                    String docnum = num.ToString();
+                    SAPbouiCOM.EditText ETDOCNO = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCNO").Specific;
+                    ETDOCNO.Value = docnum;
+                }
 
                 SAPbouiCOM.EditText ETDOCDAT = (SAPbouiCOM.EditText)ofrm.Items.Item("ETDOCDAT").Specific;
                 // Set current date in format "yyyyMMdd"
