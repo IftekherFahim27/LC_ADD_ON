@@ -51,7 +51,6 @@ namespace LC_ADD_ON.Resources
             this.STBUNIT = ((SAPbouiCOM.StaticText)(this.GetItem("STBUNIT").Specific));
             this.STMMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STMMODE").Specific));
             this.STCMMODE = ((SAPbouiCOM.StaticText)(this.GetItem("STCMMODE").Specific));
-
             this.CBCOMPNY = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCOMPNY").Specific));
             this.CBTYTRNS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBTYTRNS").Specific));
             this.CBCONTRY = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCONTRY").Specific));
@@ -60,11 +59,9 @@ namespace LC_ADD_ON.Resources
             this.CBPMTRMS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBPMTRMS").Specific));
             this.CBDAY = ((SAPbouiCOM.ComboBox)(this.GetItem("CBDAY").Specific));
             this.CBINCTRS = ((SAPbouiCOM.ComboBox)(this.GetItem("CBINCTRS").Specific));
-
             this.ETB2LCNO = ((SAPbouiCOM.EditText)(this.GetItem("ETB2LCNO").Specific));
             this.ETAMDNO = ((SAPbouiCOM.EditText)(this.GetItem("ETAMDNO").Specific));
             this.ETAMDDT = ((SAPbouiCOM.EditText)(this.GetItem("ETAMDDT").Specific));
-            this.CBCMMODE = ((SAPbouiCOM.EditText)(this.GetItem("CBCMMODE").Specific));
             this.ETDESC = ((SAPbouiCOM.EditText)(this.GetItem("ETDESC").Specific));
             this.ETREFRNC = ((SAPbouiCOM.EditText)(this.GetItem("ETREFRNC").Specific));
             this.ETITEMNO = ((SAPbouiCOM.EditText)(this.GetItem("ETITEMNO").Specific));
@@ -92,22 +89,22 @@ namespace LC_ADD_ON.Resources
             this.ETBUNIT = ((SAPbouiCOM.EditText)(this.GetItem("ETBUNIT").Specific));
             this.ETDOCTRY = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCTRY").Specific));
             this.ETSTATUS = ((SAPbouiCOM.EditText)(this.GetItem("ETSTATUS").Specific));
-
-
-
             this.Folder0 = ((SAPbouiCOM.Folder)(this.GetItem("Item_77").Specific));
             this.Folder1 = ((SAPbouiCOM.Folder)(this.GetItem("Item_78").Specific));
             this.Folder2 = ((SAPbouiCOM.Folder)(this.GetItem("Item_79").Specific));
             this.Folder3 = ((SAPbouiCOM.Folder)(this.GetItem("Item_80").Specific));
             this.Folder4 = ((SAPbouiCOM.Folder)(this.GetItem("Item_81").Specific));
             this.Folder5 = ((SAPbouiCOM.Folder)(this.GetItem("Item_82").Specific));
-             
-            this.Matrix0 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_83").Specific));
+            this.Matrix0 = ((SAPbouiCOM.Matrix)(this.GetItem("MATPIDAT").Specific));
             this.Matrix1 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_84").Specific));
             this.Matrix2 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_85").Specific));
             this.Grid0 = ((SAPbouiCOM.Grid)(this.GetItem("Item_25").Specific));
             this.Matrix3 = ((SAPbouiCOM.Matrix)(this.GetItem("Item_37").Specific));
-           
+            this.ComboBox0 = ((SAPbouiCOM.ComboBox)(this.GetItem("CBCMMODE").Specific));
+            this.EditText0 = ((SAPbouiCOM.EditText)(this.GetItem("ETREMRKS").Specific));
+            this.Button0 = ((SAPbouiCOM.Button)(this.GetItem("1").Specific));
+            this.Button1 = ((SAPbouiCOM.Button)(this.GetItem("2").Specific));
+            this.StaticText1 = ((SAPbouiCOM.StaticText)(this.GetItem("STREMRKS").Specific));
             this.OnCustomInitialize();
 
         }
@@ -130,7 +127,6 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.EditText ETB2LCNO;
         private SAPbouiCOM.EditText ETAMDNO;
         private SAPbouiCOM.EditText ETAMDDT;
-        private SAPbouiCOM.EditText CBCMMODE;
         private SAPbouiCOM.EditText ETDESC;
         private SAPbouiCOM.EditText ETREFRNC;
         private SAPbouiCOM.EditText ETITEMNO;
@@ -219,6 +215,10 @@ namespace LC_ADD_ON.Resources
         private SAPbouiCOM.Matrix Matrix2;
         private SAPbouiCOM.Grid Grid0;
         private SAPbouiCOM.Matrix Matrix3;
-       
+        private SAPbouiCOM.ComboBox ComboBox0;
+        private SAPbouiCOM.EditText EditText0;
+        private SAPbouiCOM.Button Button0;
+        private SAPbouiCOM.Button Button1;
+        private SAPbouiCOM.StaticText StaticText1;
     }
 }
